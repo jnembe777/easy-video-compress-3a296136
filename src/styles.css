@@ -30,50 +30,54 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-glow: var(--glow);
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 0.5rem;
 
-  /* Tech sombre — deep indigo midnight */
-  --background: oklch(0.13 0.04 270);
-  --foreground: oklch(0.97 0.01 270);
+  /* PP-CODEC FORGE — Teal #00A6A0 on deep ink */
+  /* Deep navy/ink background per brochures */
+  --background: oklch(0.16 0.03 230);
+  --foreground: oklch(0.97 0.01 230);
 
-  --card: oklch(0.17 0.05 270);
-  --card-foreground: oklch(0.97 0.01 270);
+  --card: oklch(0.20 0.03 220);
+  --card-foreground: oklch(0.97 0.01 230);
 
-  --popover: oklch(0.17 0.05 270);
-  --popover-foreground: oklch(0.97 0.01 270);
+  --popover: oklch(0.20 0.03 220);
+  --popover-foreground: oklch(0.97 0.01 230);
 
-  --primary: oklch(0.62 0.22 275);
-  --primary-foreground: oklch(0.98 0.01 270);
-  --glow: oklch(0.72 0.25 275);
+  /* Teal #00A6A0 — primary brand */
+  --primary: oklch(0.66 0.12 190);
+  --primary-foreground: oklch(0.12 0.02 220);
+  --glow: oklch(0.78 0.14 188);
 
-  --secondary: oklch(0.22 0.06 270);
-  --secondary-foreground: oklch(0.97 0.01 270);
+  --secondary: oklch(0.24 0.03 220);
+  --secondary-foreground: oklch(0.97 0.01 230);
 
-  --muted: oklch(0.22 0.05 270);
-  --muted-foreground: oklch(0.68 0.04 270);
+  --muted: oklch(0.24 0.03 220);
+  --muted-foreground: oklch(0.72 0.02 220);
 
-  --accent: oklch(0.55 0.24 285);
-  --accent-foreground: oklch(0.98 0.01 270);
+  /* Secondary accent — warm sand from brochures (#d4c5a9) */
+  --accent: oklch(0.83 0.05 80);
+  --accent-foreground: oklch(0.16 0.03 230);
 
-  --destructive: oklch(0.62 0.24 25);
-  --destructive-foreground: oklch(0.98 0.01 270);
+  --destructive: oklch(0.62 0.20 25);
+  --destructive-foreground: oklch(0.98 0.01 230);
 
-  --border: oklch(0.27 0.05 270);
-  --input: oklch(0.22 0.05 270);
-  --ring: oklch(0.62 0.22 275);
+  --border: oklch(0.30 0.03 220);
+  --input: oklch(0.24 0.03 220);
+  --ring: oklch(0.66 0.12 190);
 
-  --gradient-hero: radial-gradient(ellipse at top, oklch(0.30 0.18 275 / 0.4), transparent 60%),
-                   linear-gradient(180deg, oklch(0.13 0.04 270), oklch(0.10 0.03 270));
-  --gradient-primary: linear-gradient(135deg, oklch(0.62 0.22 275), oklch(0.55 0.24 295));
-  --gradient-border: linear-gradient(135deg, oklch(0.62 0.22 275 / 0.6), oklch(0.55 0.24 295 / 0.2));
-  --shadow-glow: 0 0 40px oklch(0.62 0.22 275 / 0.35);
-  --shadow-elegant: 0 20px 60px -20px oklch(0.05 0.03 270 / 0.8);
+  --gradient-hero: radial-gradient(ellipse at 20% 0%, oklch(0.66 0.12 190 / 0.35), transparent 55%),
+                   radial-gradient(ellipse at 80% 100%, oklch(0.83 0.05 80 / 0.18), transparent 60%),
+                   linear-gradient(180deg, oklch(0.16 0.03 230), oklch(0.12 0.02 225));
+  --gradient-primary: linear-gradient(135deg, oklch(0.66 0.12 190), oklch(0.78 0.14 188));
+  --gradient-border: linear-gradient(135deg, oklch(0.66 0.12 190 / 0.6), oklch(0.83 0.05 80 / 0.25));
+  --shadow-glow: 0 0 50px oklch(0.66 0.12 190 / 0.30);
+  --shadow-elegant: 0 24px 70px -24px oklch(0.04 0.02 220 / 0.85);
 }
 
 .dark { color-scheme: dark; }
@@ -87,7 +91,11 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    font-weight: 500;
+  }
 }
 
 @layer utilities {
@@ -103,8 +111,9 @@
   .shadow-elegant { box-shadow: var(--shadow-elegant); }
   .grid-pattern {
     background-image:
-      linear-gradient(oklch(0.62 0.22 275 / 0.08) 1px, transparent 1px),
-      linear-gradient(90deg, oklch(0.62 0.22 275 / 0.08) 1px, transparent 1px);
-    background-size: 48px 48px;
+      linear-gradient(oklch(0.66 0.12 190 / 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.66 0.12 190 / 0.08) 1px, transparent 1px);
+    background-size: 56px 56px;
   }
+  .font-display-italic { font-family: var(--font-display); font-style: italic; }
 }
