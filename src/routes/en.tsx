@@ -112,6 +112,7 @@ function Home() {
             <a href="#paradigm" className="hover:text-foreground transition-colors">Paradigm</a>
             <a href="#benchmarks" className="hover:text-foreground transition-colors">Benchmarks</a>
             <a href="#compare" className="hover:text-foreground transition-colors">Comparison</a>
+            <Link to="/en/tools" className="hover:text-foreground transition-colors">Tools</Link>
             <a href="#demo" className="hover:text-foreground transition-colors">Demo</a>
             <Link to="/" className="font-mono text-xs uppercase tracking-widest border border-border rounded-md px-2 py-1 hover:text-foreground hover:border-primary/50 transition-colors">
               FR
