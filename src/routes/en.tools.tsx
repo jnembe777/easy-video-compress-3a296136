@@ -3,6 +3,9 @@ import { ArrowLeft, FlaskConical } from "lucide-react";
 import { PixelTrace } from "@/components/tools/PixelTrace";
 import { P3bisTree } from "@/components/tools/P3bisTree";
 import { MdlComparator } from "@/components/tools/MdlComparator";
+import { HellingerChart } from "@/components/tools/HellingerChart";
+import { ArithmeticCoder } from "@/components/tools/ArithmeticCoder";
+import { BenchmarkDashboard } from "@/components/tools/BenchmarkDashboard";
 
 export const Route = createFileRoute("/en/tools")({
   head: () => ({
@@ -34,14 +37,14 @@ function ToolsPage() {
         <div className="absolute inset-0 grid-pattern opacity-30 pointer-events-none" />
         <div className="relative max-w-7xl mx-auto px-6 py-16 sm:py-20">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs text-primary font-mono mb-6">
-            <FlaskConical className="size-3" /> Wave 1 / 3
+            <FlaskConical className="size-3" /> Wave 2 / 3
           </div>
           <h1 className="font-display text-4xl sm:text-6xl font-medium tracking-tight leading-tight max-w-3xl">
             Touch the codec, <span className="font-display-italic text-gradient">not the theory.</span>
           </h1>
           <p className="text-muted-foreground mt-5 max-w-2xl text-lg leading-relaxed">
-            Three interactive tools to understand PP‑CODEC in a few clicks — no install, no WASM,
-            right in your browser.
+            Six interactive tools to grasp PP‑CODEC in a few clicks — paradigm, heuristics, MDL,
+            Hellinger convergence, arithmetic coder and benchmarks. No install, no WASM.
           </p>
         </div>
       </section>
@@ -50,11 +53,14 @@ function ToolsPage() {
         <PixelTrace lang="en" />
         <P3bisTree lang="en" />
         <MdlComparator lang="en" />
+        <HellingerChart lang="en" />
+        <ArithmeticCoder lang="en" />
+        <BenchmarkDashboard lang="en" />
       </div>
 
       <footer className="border-t border-border/50">
         <div className="max-w-7xl mx-auto px-6 py-8 text-sm text-muted-foreground flex flex-wrap items-center justify-between gap-3">
-          <span className="font-mono text-xs">PP‑CODEC FORGE · Tools v1 · Wave 1/3</span>
+          <span className="font-mono text-xs">PP‑CODEC FORGE · Tools v2 · Wave 2/3</span>
           <Link to="/en" className="hover:text-foreground transition-colors">← Back to landing</Link>
         </div>
       </footer>
