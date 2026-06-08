@@ -104,8 +104,15 @@ function Lecteur() {
         if (cv.width !== w) cv.width = w;
         if (cv.height !== h) cv.height = h;
 
-        // Compute draw rect (contain) with zoom+pan
-        const vAR = v.videoWidth / v.videoHeight;
+        // Face crop (source rect dans la vidéo)
+        const [fx, fy, fw, fh] = faceCrop();
+        const srcX = fx * v.videoWidth;
+        const srcY = fy * v.videoHeight;
+        const srcW = fw * v.videoWidth;
+        const srcH = fh * v.videoHeight;
+
+        // Compute draw rect (contain) avec zoom + pan
+        const vAR = srcW / srcH;
         const cAR = w / h;
         let dw = w, dh = h;
         if (vAR > cAR) { dh = w / vAR; } else { dw = h * vAR; }
@@ -115,10 +122,21 @@ function Lecteur() {
 
         ctx.fillStyle = "#000";
         ctx.fillRect(0, 0, w, h);
-        ctx.imageSmoothingEnabled = lod === 2;
-        ctx.drawImage(v, dx, dy, dw, dh);
 
-        // Throttled analysis (~6 Hz)
+        // LOD : rendu via canvas intermédiaire à résolution réduite, puis upscale nearest
+        const s = LOD_SCALE[lod];
+        if (s < 1) {
+          const lw = Math.max(8, Math.floor(dw * s));
+          const lh = Math.max(8, Math.floor(dh * s));
+          acv.width = lw; acv.height = lh;
+          actx.imageSmoothingEnabled = true;
+          actx.drawImage(v, srcX, srcY, srcW, srcH, 0, 0, lw, lh);
+          ctx.imageSmoothingEnabled = false;
+          ctx.drawImage(acv, dx, dy, dw, dh);
+        } else {
+          ctx.imageSmoothingEnabled = true;
+          ctx.drawImage(v, srcX, srcY, srcW, srcH, dx, dy, dw, dh);
+        }
         const now = performance.now();
         if (now - lastAnalyze > 160) {
           lastAnalyze = now;
