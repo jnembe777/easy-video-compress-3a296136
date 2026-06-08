@@ -66,20 +66,21 @@ describe("faceCrop", () => {
     expect(y + h / 2).toBeCloseTo(0.5);
   });
 
-  it("Gauche et Droite sont miroir horizontalement", () => {
+  it("Gauche et Droite sont symétriques autour de l'axe vertical", () => {
     const [gx, gy, gw, gh] = faceCrop("Gauche");
     const [dx, dy, dw, dh] = faceCrop("Droite");
     expect(gw).toBeCloseTo(dw);
     expect(gh).toBeCloseTo(dh);
     expect(gy).toBeCloseTo(dy);
-    expect(gx + gw + dw).toBeCloseTo(1);
+    // miroir : (gx+gw/2) et (dx+dw/2) équidistants de 0.5
+    expect((gx + gw / 2) + (dx + dw / 2)).toBeCloseTo(1);
   });
 
-  it("Haut et Bas sont miroir verticalement", () => {
+  it("Haut et Bas sont symétriques autour de l'axe horizontal", () => {
     const [, hy, , hh] = faceCrop("Haut");
     const [, by, , bh] = faceCrop("Bas");
     expect(hh).toBeCloseTo(bh);
-    expect(hy + hh + bh).toBeCloseTo(1);
+    expect((hy + hh / 2) + (by + bh / 2)).toBeCloseTo(1);
   });
 });
 
