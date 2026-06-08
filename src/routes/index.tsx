@@ -440,7 +440,9 @@ function Home() {
               Trois outils, <span className="font-display-italic text-gradient">une seule pile</span>.
             </h2>
             <p className="text-muted-foreground mt-4 text-lg">
-              Lecteur, navigateur 3D et codec sémantique fonctionnent sur le même format <span className="font-mono text-primary">.ppv</span>.
+              Deux interfaces visuelles — Lecteur sémantique et Navigateur 3D à <span className="text-foreground">zoom multi‑échelle</span> — exploitent
+              directement la pyramide spatiale du format <span className="font-mono text-primary">.ppv</span>.
+              Le Codec sémantique pilote l'indexation et les métadonnées.
             </p>
           </div>
 
@@ -450,33 +452,34 @@ function Home() {
               icon={Play}
               name="PPV Studio — Lecteur"
               tagline="La vidéo s'explore."
-              points={["Timeline sémantique", "Zoom natif O(1)", "LOD adaptatif"]}
+              points={[
+                "Timeline sémantique (tags, événements)",
+                "Zoom temporel natif O(1) sur seek table",
+                "LOD adaptatif selon la fenêtre visible",
+              ]}
             />
             <ToolCard
               to="/navigateur"
               icon={Box}
               name="PPV 360 — Navigateur"
-              tagline="Cube 6 faces, LOD progressif."
-              points={["Vidéo 3D native", "Pyramide multi-échelle", "Capture & enregistrement"]}
+              tagline="Zoom multi‑échelle, cube 6 faces."
+              points={[
+                "Pyramide spatiale 2× / 4× / 8× progressive",
+                "Vidéo 3D native, navigation par face",
+                "Décodage random‑access bloc par bloc",
+              ]}
             />
             <ToolCard
               to="/codec"
               icon={Database}
               name="PPV Codec — Sémantique"
               tagline="Compresser l'événement."
-              points={["Moteur SQL sémantique", "Éditeur métadonnées", "Vecteurs de mouvement"]}
+              points={[
+                "Moteur de requêtes SQL sémantique",
+                "Éditeur de métadonnées par bloc",
+                "Vecteurs de mouvement & tags",
+              ]}
             />
-          </div>
-
-          <div className="mt-10 rounded-2xl border border-primary/30 bg-primary/5 p-8 flex flex-wrap items-center justify-between gap-6">
-            <div>
-              <p className="font-mono text-xs uppercase tracking-[0.25em] text-primary mb-2">9 démos interactives</p>
-              <h3 className="font-display text-2xl">Pixel Trace · P3bis · MDL · Hellinger · Arithmetic Coder · Benchmark · Poisson · Pyramide · .ppv Inspector</h3>
-              <p className="text-sm text-muted-foreground mt-2">Toutes les démos théoriques du paradigme PP-CODEC, jouables dans le navigateur.</p>
-            </div>
-            <Link to="/outils" className="inline-flex items-center gap-2 rounded-md bg-gradient-primary px-6 py-3 font-medium text-primary-foreground shadow-glow shrink-0">
-              Ouvrir la suite démos <ArrowRight className="size-4" />
-            </Link>
           </div>
         </div>
       </section>
