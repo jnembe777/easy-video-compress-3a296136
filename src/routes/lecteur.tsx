@@ -22,16 +22,6 @@ const VIDEO_SRC = "https://cdn.jsdelivr.net/gh/mediaelement/mediaelement-files/b
 
 type Tag = { start: number; end: number; label: string; icon: string };
 
-function fmt(s: number) {
-  if (!isFinite(s)) return "--:--";
-  const m = Math.floor(s / 60).toString().padStart(2, "0");
-  const sec = Math.floor(s % 60).toString().padStart(2, "0");
-  return `${m}:${sec}`;
-}
-
-// LOD → downscale factor for analysis canvas
-const LOD_SCALE = [0.25, 0.5, 1]; // LOD 0=low, 2=high
-const LOD_LABEL = ["1/4", "1/2", "1/1"];
 
 function Lecteur() {
   const videoRef = useRef<HTMLVideoElement>(null);
