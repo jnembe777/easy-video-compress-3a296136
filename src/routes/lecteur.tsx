@@ -85,7 +85,7 @@ function Lecteur() {
         if (cv.height !== h) cv.height = h;
 
         // Face crop (source rect dans la vidéo)
-        const [fx, fy, fw, fh] = faceCrop();
+        const [fx, fy, fw, fh] = faceCrop(face);
         const srcX = fx * v.videoWidth;
         const srcY = fy * v.videoHeight;
         const srcW = fw * v.videoWidth;
