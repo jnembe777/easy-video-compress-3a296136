@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft, Save, RotateCcw, BarChart3, Search, Download, Play, Pencil, Trash2, Plus } from "lucide-react";
+import { ArrowLeft, Save, RotateCcw, BarChart3, Search, Download, Play, Pencil, Trash2, Plus, Clock } from "lucide-react";
 import { TerminalBox, TerminalButton } from "@/components/terminal/TerminalBox";
 
 export const Route = createFileRoute("/codec")({
@@ -38,13 +38,13 @@ function Codec() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />
-      <div className="max-w-5xl mx-auto px-6 py-10 space-y-4">
+      <div className="max-w-4xl mx-auto px-6 py-8 space-y-5">
         <div className="flex gap-2">
           <TerminalButton active={tab === "query"} onClick={() => setTab("query")}>
-            Moteur de requêtes
+            ▸ Moteur de requêtes
           </TerminalButton>
           <TerminalButton active={tab === "meta"} onClick={() => setTab("meta")}>
-            Éditeur de métadonnées
+            ▸ Éditeur de métadonnées
           </TerminalButton>
         </div>
 
@@ -66,7 +66,6 @@ ORDER BY time ASC`;
 
   const run = () => {
     setElapsed(15 + Math.floor(Math.random() * 30));
-    // simple filter demo: if query contains "personne", swap
     if (/personne/i.test(query)) {
       setResults([
         { time: "00:03:12", block: "B(1,0)", tag: "personne", conf: 0.87 },
@@ -80,34 +79,33 @@ ORDER BY time ASC`;
   };
 
   return (
-    <>
+    <div className="space-y-5">
       <Title text="MOTEUR DE REQUÊTES SÉMANTIQUES" />
+
       <TerminalBox title="Requête">
         <textarea
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           spellCheck={false}
-          className="w-full bg-transparent text-primary font-mono text-[13px] resize-none outline-none min-h-[140px]"
+          className="w-full bg-transparent text-primary font-mono text-[12.5px] leading-relaxed resize-none outline-none min-h-[120px]"
         />
-        <div className="flex justify-end mt-2">
-          <TerminalButton onClick={run}>
-            <Play className="size-3 inline mr-1" /> Exécuter
-          </TerminalButton>
+        <div className="flex justify-end mt-1">
+          <TerminalButton onClick={run}><Play className="size-3 inline mr-1" /> Exécuter</TerminalButton>
         </div>
       </TerminalBox>
 
-      <TerminalBox title={`Résultats (${results.length} occurrences trouvées en 0.0${elapsed}s)`}>
-        <div className="space-y-1 text-[13px]">
+      <TerminalBox title={`Résultats — ${results.length} occurrence${results.length>1?"s":""} en 0.0${elapsed}s`}>
+        <div className="space-y-0.5 text-[12px]">
           {results.map((r, i) => (
-            <div key={i} className="flex items-center gap-2 font-mono">
+            <div key={i} className="flex items-center gap-2 font-mono py-0.5 border-b border-primary/10 last:border-b-0">
               <span className="text-primary tabular-nums">{r.time}</span>
-              <span className="text-muted-foreground">|</span>
-              <span>{r.block}</span>
-              <span className="text-muted-foreground">|</span>
-              <span className="text-accent">{r.tag}</span>
-              <span className="text-muted-foreground">|</span>
+              <Sep />
+              <span className="text-foreground/90 w-14">{r.block}</span>
+              <Sep />
+              <span className="text-accent w-20">{r.tag}</span>
+              <Sep />
               <span className="text-muted-foreground">conf={r.conf.toFixed(2)}</span>
-              <span className="text-muted-foreground">|</span>
+              <span className="flex-1" />
               <TerminalButton><Play className="size-3 inline mr-1" /> Lire</TerminalButton>
             </div>
           ))}
@@ -115,11 +113,11 @@ ORDER BY time ASC`;
       </TerminalBox>
 
       <div className="flex gap-2 flex-wrap">
-        <TerminalButton><Download className="size-3 inline mr-1" /> Exporter Résultats</TerminalButton>
+        <TerminalButton><Download className="size-3 inline mr-1" /> Exporter</TerminalButton>
         <TerminalButton><BarChart3 className="size-3 inline mr-1" /> Analyser</TerminalButton>
-        <TerminalButton><Search className="size-3 inline mr-1" /> Nouvelle Recherche</TerminalButton>
+        <TerminalButton><Search className="size-3 inline mr-1" /> Nouvelle recherche</TerminalButton>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -138,20 +136,23 @@ function MetaPanel() {
   const remove = (i: number) => setTags(tags.filter((_, idx) => idx !== i));
 
   return (
-    <>
+    <div className="space-y-5">
       <Title text="ÉDITEUR DE MÉTADONNÉES SÉMANTIQUES" />
 
-      <TerminalBox>
-        <div className="text-[13px] font-mono flex flex-wrap gap-x-6 gap-y-1">
+      <TerminalBox dense>
+        <div className="text-[12px] font-mono flex flex-wrap items-center gap-x-4 gap-y-1">
           <span>Bloc : <span className="text-primary">B(5,3)</span></span>
-          <span><span className="text-muted-foreground">[16×16]</span></span>
-          <span>Frames : <span className="text-primary">128-256</span></span>
+          <Sep />
+          <span className="text-muted-foreground">[16×16]</span>
+          <Sep />
+          <span>Frames : <span className="text-primary">128–256</span></span>
+          <Sep />
           <span>Tags actuels : <span className="text-accent">🚗</span></span>
         </div>
       </TerminalBox>
 
-      <TerminalBox title="Ajouter un Tag">
-        <div className="flex flex-wrap items-center gap-2 text-[13px]">
+      <TerminalBox title="Ajouter un tag">
+        <div className="flex flex-wrap items-center gap-2 text-[12px]">
           <select
             value={newTag}
             onChange={(e) => setNewTag(e.target.value)}
@@ -159,6 +160,7 @@ function MetaPanel() {
           >
             {TAG_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
           </select>
+          <span className="text-muted-foreground"><Clock className="size-3 inline mr-1" /></span>
           <input
             value={range}
             onChange={(e) => setRange(e.target.value)}
@@ -166,22 +168,22 @@ function MetaPanel() {
           />
           <TerminalButton onClick={add}><Plus className="size-3 inline" /></TerminalButton>
         </div>
-        <div className="mt-2 text-xs text-muted-foreground">
-          {TAG_OPTIONS.join(", ")}
+        <div className="mt-1.5 text-[10.5px] text-muted-foreground tracking-wide">
+          {TAG_OPTIONS.join(" · ")}
         </div>
       </TerminalBox>
 
-      <TerminalBox title="Tags Existants">
-        <div className="space-y-1 text-[13px] font-mono">
+      <TerminalBox title="Tags existants">
+        <div className="space-y-0.5 text-[12px] font-mono">
           {tags.map((m, i) => (
-            <div key={i} className="flex items-center gap-2 flex-wrap">
+            <div key={i} className="flex items-center gap-2 flex-wrap py-0.5 border-b border-primary/10 last:border-b-0">
               <span className="text-accent">{m.icon}</span>
-              <span>{m.label}</span>
-              <span className="text-muted-foreground">|</span>
+              <span className="w-20">{m.label}</span>
+              <Sep />
               <span className="text-primary tabular-nums">{m.range}</span>
-              <span className="text-muted-foreground">|</span>
+              <Sep />
               <span className="text-muted-foreground">conf={m.conf.toFixed(2)}</span>
-              <span className="text-muted-foreground">|</span>
+              <span className="flex-1" />
               <TerminalButton><Pencil className="size-3 inline" /></TerminalButton>
               <TerminalButton onClick={() => remove(i)}><Trash2 className="size-3 inline" /></TerminalButton>
             </div>
@@ -189,8 +191,8 @@ function MetaPanel() {
         </div>
       </TerminalBox>
 
-      <TerminalBox title="Vecteur de Mouvement">
-        <div className="flex flex-wrap items-center gap-3 text-[13px] font-mono">
+      <TerminalBox title="Vecteur de mouvement">
+        <div className="flex flex-wrap items-center gap-3 text-[12px] font-mono">
           <label className="flex items-center gap-1">
             dx :
             <input type="number" value={dx} onChange={(e) => setDx(+e.target.value)}
@@ -209,23 +211,27 @@ function MetaPanel() {
       <div className="flex gap-2 flex-wrap">
         <TerminalButton><Save className="size-3 inline mr-1" /> Appliquer</TerminalButton>
         <TerminalButton><RotateCcw className="size-3 inline mr-1" /> Réinitialiser</TerminalButton>
-        <TerminalButton><BarChart3 className="size-3 inline mr-1" /> Statistiques du Bloc</TerminalButton>
+        <TerminalButton><BarChart3 className="size-3 inline mr-1" /> Statistiques du bloc</TerminalButton>
       </div>
-    </>
+    </div>
   );
+}
+
+function Sep() {
+  return <span className="text-muted-foreground/40">|</span>;
 }
 
 function Header() {
   return (
     <header className="border-b border-border/50 backdrop-blur-xl bg-background/60">
-      <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between font-mono text-xs">
+      <div className="max-w-5xl mx-auto px-6 h-12 flex items-center justify-between font-mono text-[11px]">
         <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
           <ArrowLeft className="size-3" /> PPV Studio
         </Link>
         <div className="flex gap-2">
-          <Link to="/lecteur" className="text-muted-foreground hover:text-foreground">[LECTEUR]</Link>
-          <Link to="/navigateur" className="text-muted-foreground hover:text-foreground">[NAVIGATEUR]</Link>
-          <Link to="/codec" className="text-primary">[CODEC]</Link>
+          <Link to="/lecteur" className="text-muted-foreground hover:text-foreground">[ LECTEUR ]</Link>
+          <Link to="/navigateur" className="text-muted-foreground hover:text-foreground">[ NAVIGATEUR ]</Link>
+          <Link to="/codec" className="text-primary">[ CODEC ]</Link>
         </div>
       </div>
     </header>
@@ -235,9 +241,9 @@ function Header() {
 function Title({ text }: { text: string }) {
   return (
     <div className="flex items-center gap-3 font-mono text-primary">
-      <span className="flex-1 border-t-2 border-double border-primary/60" />
-      <span className="uppercase tracking-[0.3em] text-sm">{text}</span>
-      <span className="flex-1 border-t-2 border-double border-primary/60" />
+      <span className="flex-1 border-t border-double border-primary/50" />
+      <span className="uppercase tracking-[0.32em] text-[12px]">{text}</span>
+      <span className="flex-1 border-t border-double border-primary/50" />
     </div>
   );
 }
