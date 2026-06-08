@@ -156,18 +156,18 @@ function Home() {
               processus ponctuels marqués et le principe MDL. Chaque pixel devient un flux temporel
               indépendant — et la compression devient mathématique.
             </p>
-            <div className="mt-10 flex flex-wrap gap-4 text-sm">
-              <a
-                href="#benchmarks"
-                className="inline-flex items-center gap-2 rounded-md bg-gradient-primary px-6 py-3 font-medium text-primary-foreground shadow-glow hover:opacity-90 transition-opacity"
-              >
-                Voir les benchmarks
+            <div className="mt-10 flex flex-wrap gap-3 text-sm">
+              <a href="#tools" className="inline-flex items-center gap-2 rounded-md bg-gradient-primary px-6 py-3 font-medium text-primary-foreground shadow-glow hover:opacity-90 transition-opacity">
+                Ouvrir les 3 outils <ArrowRight className="size-4" />
               </a>
-              <a
-                href="#demo"
-                className="inline-flex items-center gap-2 rounded-md border border-border bg-card/50 px-6 py-3 font-medium hover:bg-card transition-colors"
-              >
-                Essayer la démo classique
+              <Link to="/outils" className="inline-flex items-center gap-2 rounded-md border border-primary/40 bg-primary/5 px-6 py-3 font-medium hover:bg-primary/10 transition-colors">
+                <FlaskConical className="size-4 text-primary" /> 9 démos interactives
+              </Link>
+              <a href="#marches" className="inline-flex items-center gap-2 rounded-md border border-border bg-card/50 px-6 py-3 font-medium hover:bg-card transition-colors">
+                Pitch commercial
+              </a>
+              <a href="#paradigm" className="inline-flex items-center gap-2 rounded-md border border-border bg-card/50 px-6 py-3 font-medium hover:bg-card transition-colors">
+                Détails techniques
               </a>
             </div>
 
