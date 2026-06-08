@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, Save, RotateCcw, BarChart3, Search, Download, Play, Pencil, Trash2, Plus, Clock } from "lucide-react";
 import { TerminalBox, TerminalButton } from "@/components/terminal/TerminalBox";
+import { FeaturesBar } from "@/components/terminal/FeaturesBar";
 
 export const Route = createFileRoute("/codec")({
   head: () => ({
@@ -39,6 +40,7 @@ function Codec() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
       <div className="max-w-4xl mx-auto px-6 py-8 space-y-5">
+        <FeaturesBar />
         <div className="flex gap-2">
           <TerminalButton active={tab === "query"} onClick={() => setTab("query")}>
             ▸ Moteur de requêtes
