@@ -310,12 +310,12 @@ function Lecteur() {
               seek(((e.clientX - r.left) / r.width) * duration);
             }}
           >
-            {tags.length === 0 && (
+            {visibleTags.length === 0 && (
               <div className="absolute inset-0 flex items-center justify-center text-[10.5px] text-muted-foreground font-mono">
-                [ lance la lecture pour générer les segments ]
+                [ {tags.length === 0 ? "lance la lecture pour générer les segments" : `aucun segment ne correspond à « ${query} »`} ]
               </div>
             )}
-            {tags.map((tag, i) => (
+            {visibleTags.map((tag, i) => (
               <div
                 key={i}
                 className="absolute top-0 bottom-0 flex items-center justify-center text-xs border-r border-primary/25 last:border-r-0"
