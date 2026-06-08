@@ -182,6 +182,48 @@ function Home() {
         </div>
       </section>
 
+      {/* ==================== TRACK COMMERCIAL ==================== */}
+      <SectionDivider label="Track 1 — Vision & Marchés" />
+
+      {/* Markets / verticals */}
+      <section id="marches" className="border-t border-border/50">
+        <div className="max-w-7xl mx-auto px-6 py-24">
+          <div className="max-w-3xl mb-12">
+            <p className="text-xs font-mono uppercase tracking-[0.3em] text-accent">Pitch commercial</p>
+            <h2 className="font-display text-4xl sm:text-5xl font-medium mt-4 leading-tight">
+              Compresser <span className="font-display-italic">l'événement</span>,
+              <br />pas le pixel.
+            </h2>
+            <p className="text-muted-foreground mt-5 text-lg leading-relaxed">
+              Le premier codec vidéo lossless qui exploite la sparsité temporelle native des contenus
+              statiques. Six marchés verticaux, un même paradigme.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {markets.map((m) => (
+              <div key={m.name} className="rounded-2xl border border-border bg-card p-6 hover:border-primary/40 transition-colors relative overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: m.color }} />
+                <m.icon className="size-6 mb-4" style={{ color: m.color }} />
+                <h3 className="font-display text-xl font-semibold">{m.name}</h3>
+                <p className="font-mono text-3xl mt-3" style={{ color: m.color }}>{m.ratio}</p>
+                <p className="text-xs font-mono text-muted-foreground mt-1">vs {m.vs}</p>
+                <p className="text-sm text-muted-foreground mt-4 leading-relaxed">{m.text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 grid sm:grid-cols-3 gap-px bg-border/60 rounded-2xl overflow-hidden">
+            <TamCell label="Surveillance" value="$8 B" sub="caméras IP, NVR cloud" />
+            <TamCell label="Médical + Satellite" value="$4 B" sub="imagerie diagnostique, EO" />
+            <TamCell label="Streaming + VR/XR" value="$12 B" sub="ciné, 360°, volumétrique" />
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== TRACK TECHNIQUE ==================== */}
+      <SectionDivider label="Track 2 — Architecture & Théorie" />
+
       {/* Paradigm shift */}
       <section id="paradigm" className="border-t border-border/50">
         <div className="max-w-7xl mx-auto px-6 py-24">
