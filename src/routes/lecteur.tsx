@@ -349,16 +349,6 @@ function Lecteur() {
   );
 }
 
-function bucket(a: number): 0 | 1 | 2 {
-  if (a < 8) return 0;
-  if (a < 25) return 1;
-  return 2;
-}
-function bucketTag(b: 0 | 1 | 2): { label: string; icon: string } {
-  if (b === 0) return { label: "rien", icon: "·" };
-  if (b === 1) return { label: "personne", icon: "🚶" };
-  return { label: "véhicule", icon: "🚗" };
-}
 
 function Header() {
   return (
