@@ -174,7 +174,7 @@ function Lecteur() {
     };
     rafRef.current = requestAnimationFrame(loop);
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-  }, [zoom, pan, lod]);
+  }, [zoom, pan, lod, face]);
 
   // Build semantic timeline from activity samples while playing
   const samplesRef = useRef<{ t: number; a: number }[]>([]);
