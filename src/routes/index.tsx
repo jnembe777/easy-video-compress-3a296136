@@ -108,12 +108,13 @@ function Home() {
               <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-mono">PP‑CODEC FORGE</p>
             </div>
           </div>
-          <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
+          <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
             <a href="#paradigm" className="hover:text-foreground transition-colors">Paradigme</a>
             <a href="#benchmarks" className="hover:text-foreground transition-colors">Benchmarks</a>
-            <a href="#compare" className="hover:text-foreground transition-colors">Comparatif</a>
+            <Link to="/lecteur" className="hover:text-foreground transition-colors font-mono text-xs uppercase tracking-wider">Lecteur</Link>
+            <Link to="/navigateur" className="hover:text-foreground transition-colors font-mono text-xs uppercase tracking-wider">Navigateur</Link>
+            <Link to="/codec" className="hover:text-foreground transition-colors font-mono text-xs uppercase tracking-wider">Codec</Link>
             <Link to="/outils" className="hover:text-foreground transition-colors">Outils</Link>
-            <a href="#demo" className="hover:text-foreground transition-colors">Démo</a>
             <Link to="/en" className="font-mono text-xs uppercase tracking-widest border border-border rounded-md px-2 py-1 hover:text-foreground hover:border-primary/50 transition-colors">
               EN
             </Link>
