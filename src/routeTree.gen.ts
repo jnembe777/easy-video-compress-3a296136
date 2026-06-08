@@ -10,7 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as OutilsRouteImport } from './routes/outils'
+import { Route as NavigateurRouteImport } from './routes/navigateur'
+import { Route as LecteurRouteImport } from './routes/lecteur'
 import { Route as EnRouteImport } from './routes/en'
+import { Route as CodecRouteImport } from './routes/codec'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EnToolsRouteImport } from './routes/en.tools'
 
@@ -19,9 +22,24 @@ const OutilsRoute = OutilsRouteImport.update({
   path: '/outils',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NavigateurRoute = NavigateurRouteImport.update({
+  id: '/navigateur',
+  path: '/navigateur',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LecteurRoute = LecteurRouteImport.update({
+  id: '/lecteur',
+  path: '/lecteur',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnRoute = EnRouteImport.update({
   id: '/en',
   path: '/en',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CodecRoute = CodecRouteImport.update({
+  id: '/codec',
+  path: '/codec',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,34 +55,68 @@ const EnToolsRoute = EnToolsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/codec': typeof CodecRoute
   '/en': typeof EnRouteWithChildren
+  '/lecteur': typeof LecteurRoute
+  '/navigateur': typeof NavigateurRoute
   '/outils': typeof OutilsRoute
   '/en/tools': typeof EnToolsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/codec': typeof CodecRoute
   '/en': typeof EnRouteWithChildren
+  '/lecteur': typeof LecteurRoute
+  '/navigateur': typeof NavigateurRoute
   '/outils': typeof OutilsRoute
   '/en/tools': typeof EnToolsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/codec': typeof CodecRoute
   '/en': typeof EnRouteWithChildren
+  '/lecteur': typeof LecteurRoute
+  '/navigateur': typeof NavigateurRoute
   '/outils': typeof OutilsRoute
   '/en/tools': typeof EnToolsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/en' | '/outils' | '/en/tools'
+  fullPaths:
+    | '/'
+    | '/codec'
+    | '/en'
+    | '/lecteur'
+    | '/navigateur'
+    | '/outils'
+    | '/en/tools'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/en' | '/outils' | '/en/tools'
-  id: '__root__' | '/' | '/en' | '/outils' | '/en/tools'
+  to:
+    | '/'
+    | '/codec'
+    | '/en'
+    | '/lecteur'
+    | '/navigateur'
+    | '/outils'
+    | '/en/tools'
+  id:
+    | '__root__'
+    | '/'
+    | '/codec'
+    | '/en'
+    | '/lecteur'
+    | '/navigateur'
+    | '/outils'
+    | '/en/tools'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CodecRoute: typeof CodecRoute
   EnRoute: typeof EnRouteWithChildren
+  LecteurRoute: typeof LecteurRoute
+  NavigateurRoute: typeof NavigateurRoute
   OutilsRoute: typeof OutilsRoute
 }
 
@@ -77,11 +129,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OutilsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/navigateur': {
+      id: '/navigateur'
+      path: '/navigateur'
+      fullPath: '/navigateur'
+      preLoaderRoute: typeof NavigateurRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lecteur': {
+      id: '/lecteur'
+      path: '/lecteur'
+      fullPath: '/lecteur'
+      preLoaderRoute: typeof LecteurRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en': {
       id: '/en'
       path: '/en'
       fullPath: '/en'
       preLoaderRoute: typeof EnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/codec': {
+      id: '/codec'
+      path: '/codec'
+      fullPath: '/codec'
+      preLoaderRoute: typeof CodecRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -113,7 +186,10 @@ const EnRouteWithChildren = EnRoute._addFileChildren(EnRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CodecRoute: CodecRoute,
   EnRoute: EnRouteWithChildren,
+  LecteurRoute: LecteurRoute,
+  NavigateurRoute: NavigateurRoute,
   OutilsRoute: OutilsRoute,
 }
 export const routeTree = rootRouteImport
