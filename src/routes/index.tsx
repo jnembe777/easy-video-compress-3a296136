@@ -124,6 +124,28 @@ function TamCell({ label, value, sub }: { label: string; value: string; sub: str
   );
 }
 
+function ToolCard({
+  to, icon: Icon, name, tagline, points,
+}: { to: "/lecteur" | "/navigateur" | "/codec"; icon: typeof Play; name: string; tagline: string; points: string[] }) {
+  return (
+    <Link to={to} className="group rounded-2xl border border-border bg-card p-7 hover:border-primary/50 hover:shadow-glow transition-all relative overflow-hidden">
+      <div className="size-12 rounded-md bg-gradient-primary grid place-items-center mb-5 shadow-glow">
+        <Icon className="size-6 text-primary-foreground" />
+      </div>
+      <h3 className="font-display text-xl font-semibold">{name}</h3>
+      <p className="font-display-italic text-primary mt-1">{tagline}</p>
+      <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
+        {points.map((p) => (
+          <li key={p} className="flex items-center gap-2"><span className="text-primary">›</span> {p}</li>
+        ))}
+      </ul>
+      <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary group-hover:gap-3 transition-all">
+        Ouvrir l'outil <ArrowRight className="size-4" />
+      </div>
+    </Link>
+  );
+}
+
 
 
 function Stat({ value, label, sub }: { value: string; label: string; sub?: string }) {
