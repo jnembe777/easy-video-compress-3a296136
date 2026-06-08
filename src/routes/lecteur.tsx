@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { TerminalBox, TerminalButton } from "@/components/terminal/TerminalBox";
 import { FeaturesBar } from "@/components/terminal/FeaturesBar";
+import { fmt, bucket, bucketTag, faceCrop, filterTags, LOD_SCALE, LOD_LABEL, type Face } from "@/lib/lecteur-utils";
 
 export const Route = createFileRoute("/lecteur")({
   head: () => ({
