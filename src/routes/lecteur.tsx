@@ -46,10 +46,24 @@ function Lecteur() {
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [lod, setLod] = useState(2);
+  const [face, setFace] = useState<"Avant" | "Arrière" | "Gauche" | "Droite" | "Haut" | "Bas">("Avant");
+  const [query, setQuery] = useState("");
   const [activity, setActivity] = useState(0);
   const [colorCount, setColorCount] = useState(0);
   const [tags, setTags] = useState<Tag[]>([]);
   const [ready, setReady] = useState(false);
+
+  // Face → crop (sx,sy,sw,sh) en fraction de la vidéo
+  const faceCrop = (): [number, number, number, number] => {
+    switch (face) {
+      case "Avant":   return [0.25, 0.25, 0.5, 0.5];
+      case "Arrière": return [0, 0, 1, 1];
+      case "Gauche":  return [0, 0.2, 0.45, 0.6];
+      case "Droite":  return [0.55, 0.2, 0.45, 0.6];
+      case "Haut":    return [0.2, 0, 0.6, 0.45];
+      case "Bas":     return [0.2, 0.55, 0.6, 0.45];
+    }
+  };
 
   // Sync video time → state
   useEffect(() => {
@@ -90,8 +104,15 @@ function Lecteur() {
         if (cv.width !== w) cv.width = w;
         if (cv.height !== h) cv.height = h;
 
-        // Compute draw rect (contain) with zoom+pan
-        const vAR = v.videoWidth / v.videoHeight;
+        // Face crop (source rect dans la vidéo)
+        const [fx, fy, fw, fh] = faceCrop();
+        const srcX = fx * v.videoWidth;
+        const srcY = fy * v.videoHeight;
+        const srcW = fw * v.videoWidth;
+        const srcH = fh * v.videoHeight;
+
+        // Compute draw rect (contain) avec zoom + pan
+        const vAR = srcW / srcH;
         const cAR = w / h;
         let dw = w, dh = h;
         if (vAR > cAR) { dh = w / vAR; } else { dw = h * vAR; }
@@ -101,10 +122,21 @@ function Lecteur() {
 
         ctx.fillStyle = "#000";
         ctx.fillRect(0, 0, w, h);
-        ctx.imageSmoothingEnabled = lod === 2;
-        ctx.drawImage(v, dx, dy, dw, dh);
 
-        // Throttled analysis (~6 Hz)
+        // LOD : rendu via canvas intermédiaire à résolution réduite, puis upscale nearest
+        const s = LOD_SCALE[lod];
+        if (s < 1) {
+          const lw = Math.max(8, Math.floor(dw * s));
+          const lh = Math.max(8, Math.floor(dh * s));
+          acv.width = lw; acv.height = lh;
+          actx.imageSmoothingEnabled = true;
+          actx.drawImage(v, srcX, srcY, srcW, srcH, 0, 0, lw, lh);
+          ctx.imageSmoothingEnabled = false;
+          ctx.drawImage(acv, dx, dy, dw, dh);
+        } else {
+          ctx.imageSmoothingEnabled = true;
+          ctx.drawImage(v, srcX, srcY, srcW, srcH, dx, dy, dw, dh);
+        }
         const now = performance.now();
         if (now - lastAnalyze > 160) {
           lastAnalyze = now;
@@ -142,7 +174,7 @@ function Lecteur() {
     };
     rafRef.current = requestAnimationFrame(loop);
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-  }, [zoom, pan, lod]);
+  }, [zoom, pan, lod, face]);
 
   // Build semantic timeline from activity samples while playing
   const samplesRef = useRef<{ t: number; a: number }[]>([]);
@@ -204,7 +236,9 @@ function Lecteur() {
   };
 
   const pct = duration ? (time / duration) * 100 : 0;
-  const currentTag = tags.find((g) => duration && time / duration >= g.start && time / duration < g.end);
+  const q = query.trim().toLowerCase();
+  const visibleTags = q ? tags.filter((t) => t.label.toLowerCase().includes(q) || t.icon.includes(q)) : tags;
+  const currentTag = visibleTags.find((g) => duration && time / duration >= g.start && time / duration < g.end);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -212,7 +246,11 @@ function Lecteur() {
       <div className="max-w-4xl mx-auto px-6 py-8 space-y-5">
         <Title text="LECTEUR VIDÉO PPV" />
 
-        <FeaturesBar lod={lod} onLodChange={setLod} />
+        <FeaturesBar
+          lod={lod} onLodChange={setLod}
+          face={face} onFaceChange={(f) => setFace(f as typeof face)}
+          onQuery={setQuery}
+        />
 
         {/* Transport bar */}
         <TerminalBox dense>
@@ -253,7 +291,7 @@ function Lecteur() {
           )}
           {/* HUD */}
           <div className="absolute top-2 left-2 font-mono text-[10px] text-primary/80 bg-background/60 border border-primary/30 px-1.5 py-0.5">
-            ZOOM ×{zoom.toFixed(2)} · LOD {LOD_LABEL[lod]}
+            FACE {face.toUpperCase()} · ZOOM ×{zoom.toFixed(2)} · LOD {LOD_LABEL[lod]}
           </div>
           <div className="absolute bottom-2 right-2 flex gap-1">
             <TerminalButton onClick={() => { setZoom(1); setPan({x:0,y:0}); }} title="Reset"><Move className="size-3" /></TerminalButton>
@@ -272,12 +310,12 @@ function Lecteur() {
               seek(((e.clientX - r.left) / r.width) * duration);
             }}
           >
-            {tags.length === 0 && (
+            {visibleTags.length === 0 && (
               <div className="absolute inset-0 flex items-center justify-center text-[10.5px] text-muted-foreground font-mono">
-                [ lance la lecture pour générer les segments ]
+                [ {tags.length === 0 ? "lance la lecture pour générer les segments" : `aucun segment ne correspond à « ${query} »`} ]
               </div>
             )}
-            {tags.map((tag, i) => (
+            {visibleTags.map((tag, i) => (
               <div
                 key={i}
                 className="absolute top-0 bottom-0 flex items-center justify-center text-xs border-r border-primary/25 last:border-r-0"
