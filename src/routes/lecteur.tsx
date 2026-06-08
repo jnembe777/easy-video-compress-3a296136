@@ -16,8 +16,7 @@ export const Route = createFileRoute("/lecteur")({
   component: Lecteur,
 });
 
-const VIDEO_SRC =
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+const VIDEO_SRC = "https://media.w3.org/2010/05/sintel/trailer.mp4";
 
 type Tag = { start: number; end: number; label: string; icon: string };
 
