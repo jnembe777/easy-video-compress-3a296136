@@ -5,6 +5,7 @@ import {
   Volume2, VolumeX, Maximize2, BarChart3, Palette, Tag as TagIcon, Move,
 } from "lucide-react";
 import { TerminalBox, TerminalButton } from "@/components/terminal/TerminalBox";
+import { FeaturesBar } from "@/components/terminal/FeaturesBar";
 
 export const Route = createFileRoute("/lecteur")({
   head: () => ({
@@ -210,6 +211,8 @@ function Lecteur() {
       <Header />
       <div className="max-w-4xl mx-auto px-6 py-8 space-y-5">
         <Title text="LECTEUR VIDÉO PPV" />
+
+        <FeaturesBar lod={lod} onLodChange={setLod} />
 
         {/* Transport bar */}
         <TerminalBox dense>

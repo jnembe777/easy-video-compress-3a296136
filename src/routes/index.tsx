@@ -440,9 +440,11 @@ function Home() {
               Trois outils, <span className="font-display-italic text-gradient">une seule pile</span>.
             </h2>
             <p className="text-muted-foreground mt-4 text-lg">
-              Deux interfaces visuelles — Lecteur sémantique et Navigateur 3D à <span className="text-foreground">zoom multi‑échelle</span> — exploitent
-              directement la pyramide spatiale du format <span className="font-mono text-primary">.ppv</span>.
-              Le Codec sémantique pilote l'indexation et les métadonnées.
+              Lecteur, Navigateur et Codec exposent tous les trois les fonctionnalités natives du format
+              <span className="font-mono text-primary"> .ppv </span> : <span className="text-foreground">multi‑résolution</span>,
+              <span className="text-foreground"> navigation spatiale 3D</span> et
+              <span className="text-foreground"> requêtes sémantiques</span>. La navigation spatiale n'est pas un outil,
+              c'est une fonctionnalité du format — accessible partout.
             </p>
           </div>
 
@@ -451,22 +453,22 @@ function Home() {
               to="/lecteur"
               icon={Play}
               name="PPV Studio — Lecteur"
-              tagline="La vidéo s'explore."
+              tagline="Lire, zoomer, interroger."
               points={[
-                "Timeline sémantique (tags, événements)",
-                "Zoom temporel natif O(1) sur seek table",
-                "LOD adaptatif selon la fenêtre visible",
+                "Lecture vidéo + timeline sémantique générée",
+                "Zoom multi‑échelle Canvas (LOD 1/4 → 1/1)",
+                "Sélection de face 3D & requêtes inline",
               ]}
             />
             <ToolCard
               to="/navigateur"
               icon={Box}
               name="PPV 360 — Navigateur"
-              tagline="Zoom multi‑échelle, cube 6 faces."
+              tagline="Cube 6 faces, LOD progressif."
               points={[
                 "Pyramide spatiale 2× / 4× / 8× progressive",
-                "Vidéo 3D native, navigation par face",
                 "Décodage random‑access bloc par bloc",
+                "Échelle & requêtes sémantiques intégrées",
               ]}
             />
             <ToolCard
@@ -477,7 +479,7 @@ function Home() {
               points={[
                 "Moteur de requêtes SQL sémantique",
                 "Éditeur de métadonnées par bloc",
-                "Vecteurs de mouvement & tags",
+                "Multi‑échelle & navigation 3D partagées",
               ]}
             />
           </div>
