@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
   Activity,
@@ -113,6 +113,9 @@ function Home() {
             <a href="#benchmarks" className="hover:text-foreground transition-colors">Benchmarks</a>
             <a href="#compare" className="hover:text-foreground transition-colors">Comparatif</a>
             <a href="#demo" className="hover:text-foreground transition-colors">Démo</a>
+            <Link to="/en" className="font-mono text-xs uppercase tracking-widest border border-border rounded-md px-2 py-1 hover:text-foreground hover:border-primary/50 transition-colors">
+              EN
+            </Link>
           </nav>
         </div>
       </header>
