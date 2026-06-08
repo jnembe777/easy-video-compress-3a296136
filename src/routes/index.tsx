@@ -475,7 +475,7 @@ function Home() {
               to="/codec"
               icon={Database}
               name="PPV Codec — Sémantique"
-              tagline="Compresser l'événement.""
+              tagline="Compresser l'événement."
               points={[
                 "Moteur de requêtes SQL sémantique",
                 "Éditeur de métadonnées par bloc",
