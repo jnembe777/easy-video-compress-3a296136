@@ -291,7 +291,7 @@ function Lecteur() {
           )}
           {/* HUD */}
           <div className="absolute top-2 left-2 font-mono text-[10px] text-primary/80 bg-background/60 border border-primary/30 px-1.5 py-0.5">
-            ZOOM ×{zoom.toFixed(2)} · LOD {LOD_LABEL[lod]}
+            FACE {face.toUpperCase()} · ZOOM ×{zoom.toFixed(2)} · LOD {LOD_LABEL[lod]}
           </div>
           <div className="absolute bottom-2 right-2 flex gap-1">
             <TerminalButton onClick={() => { setZoom(1); setPan({x:0,y:0}); }} title="Reset"><Move className="size-3" /></TerminalButton>
