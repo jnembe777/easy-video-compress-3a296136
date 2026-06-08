@@ -178,7 +178,6 @@ function Home() {
             <a href="#paradigm" className="hover:text-foreground transition-colors">Technologie</a>
             <a href="#benchmarks" className="hover:text-foreground transition-colors">Benchmarks</a>
             <a href="#tools" className="hover:text-foreground transition-colors">Outils</a>
-            <a href="#demos" className="hover:text-foreground transition-colors">Démos</a>
             <Link to="/en" className="font-mono text-xs uppercase tracking-widest border border-border rounded-md px-2 py-1 hover:text-foreground hover:border-primary/50 transition-colors">
               EN
             </Link>
@@ -214,9 +213,6 @@ function Home() {
               <a href="#tools" className="inline-flex items-center gap-2 rounded-md bg-gradient-primary px-6 py-3 font-medium text-primary-foreground shadow-glow hover:opacity-90 transition-opacity">
                 Ouvrir les 3 outils <ArrowRight className="size-4" />
               </a>
-              <Link to="/outils" className="inline-flex items-center gap-2 rounded-md border border-primary/40 bg-primary/5 px-6 py-3 font-medium hover:bg-primary/10 transition-colors">
-                <FlaskConical className="size-4 text-primary" /> 9 démos interactives
-              </Link>
               <a href="#marches" className="inline-flex items-center gap-2 rounded-md border border-border bg-card/50 px-6 py-3 font-medium hover:bg-card transition-colors">
                 Pitch commercial
               </a>
@@ -444,7 +440,9 @@ function Home() {
               Trois outils, <span className="font-display-italic text-gradient">une seule pile</span>.
             </h2>
             <p className="text-muted-foreground mt-4 text-lg">
-              Lecteur, navigateur 3D et codec sémantique fonctionnent sur le même format <span className="font-mono text-primary">.ppv</span>.
+              Deux interfaces visuelles — Lecteur sémantique et Navigateur 3D à <span className="text-foreground">zoom multi‑échelle</span> — exploitent
+              directement la pyramide spatiale du format <span className="font-mono text-primary">.ppv</span>.
+              Le Codec sémantique pilote l'indexation et les métadonnées.
             </p>
           </div>
 
@@ -454,33 +452,34 @@ function Home() {
               icon={Play}
               name="PPV Studio — Lecteur"
               tagline="La vidéo s'explore."
-              points={["Timeline sémantique", "Zoom natif O(1)", "LOD adaptatif"]}
+              points={[
+                "Timeline sémantique (tags, événements)",
+                "Zoom temporel natif O(1) sur seek table",
+                "LOD adaptatif selon la fenêtre visible",
+              ]}
             />
             <ToolCard
               to="/navigateur"
               icon={Box}
               name="PPV 360 — Navigateur"
-              tagline="Cube 6 faces, LOD progressif."
-              points={["Vidéo 3D native", "Pyramide multi-échelle", "Capture & enregistrement"]}
+              tagline="Zoom multi‑échelle, cube 6 faces."
+              points={[
+                "Pyramide spatiale 2× / 4× / 8× progressive",
+                "Vidéo 3D native, navigation par face",
+                "Décodage random‑access bloc par bloc",
+              ]}
             />
             <ToolCard
               to="/codec"
               icon={Database}
               name="PPV Codec — Sémantique"
               tagline="Compresser l'événement."
-              points={["Moteur SQL sémantique", "Éditeur métadonnées", "Vecteurs de mouvement"]}
+              points={[
+                "Moteur de requêtes SQL sémantique",
+                "Éditeur de métadonnées par bloc",
+                "Vecteurs de mouvement & tags",
+              ]}
             />
-          </div>
-
-          <div className="mt-10 rounded-2xl border border-primary/30 bg-primary/5 p-8 flex flex-wrap items-center justify-between gap-6">
-            <div>
-              <p className="font-mono text-xs uppercase tracking-[0.25em] text-primary mb-2">9 démos interactives</p>
-              <h3 className="font-display text-2xl">Pixel Trace · P3bis · MDL · Hellinger · Arithmetic Coder · Benchmark · Poisson · Pyramide · .ppv Inspector</h3>
-              <p className="text-sm text-muted-foreground mt-2">Toutes les démos théoriques du paradigme PP-CODEC, jouables dans le navigateur.</p>
-            </div>
-            <Link to="/outils" className="inline-flex items-center gap-2 rounded-md bg-gradient-primary px-6 py-3 font-medium text-primary-foreground shadow-glow shrink-0">
-              Ouvrir la suite démos <ArrowRight className="size-4" />
-            </Link>
           </div>
         </div>
       </section>
@@ -543,9 +542,15 @@ function Home() {
               <p className="text-[10px] font-mono uppercase tracking-widest">ROOTS INSIGHTS</p>
             </div>
           </div>
-          <p className="font-mono text-xs">
-            Manifeste v1.0 — Mars 2026 · Confidentiel © {new Date().getFullYear()}
-          </p>
+          <div className="flex items-center gap-5">
+            <Link to="/outils" className="inline-flex items-center gap-2 hover:text-foreground transition-colors">
+              <FlaskConical className="size-3.5 text-primary" />
+              <span className="font-mono text-xs">9 utilitaires théoriques</span>
+            </Link>
+            <p className="font-mono text-xs">
+              Manifeste v1.0 — Mars 2026 · © {new Date().getFullYear()}
+            </p>
+          </div>
         </div>
       </footer>
     </div>
