@@ -94,6 +94,38 @@ const comparison = [
   { codec: "FFV1 (archive lossless)", ratio: "≈ 2.5 : 1", lossless: "Oui", paradigm: "Inter‑frame predictive" },
 ];
 
+const markets = [
+  { name: "Surveillance", icon: Building2, color: "oklch(0.66 0.12 190)", ratio: "20 ×", vs: "H.265 ≈ 6×", text: "Caméras IP fixes, faible activité. Lossless garanti, accès bloc O(1)." },
+  { name: "Médical", icon: Stethoscope, color: "oklch(0.70 0.15 150)", ratio: "12 ×", vs: "DICOM ≈ 3×", text: "Imagerie diagnostique : bit-exact requis, archive longue durée." },
+  { name: "Satellite EO", icon: Satellite, color: "oklch(0.75 0.13 60)", ratio: "15 ×", vs: "JPEG2000 ≈ 4×", text: "Observation Terre haute résolution, bande passante downlink critique." },
+  { name: "Espace / Probe", icon: Rocket, color: "oklch(0.65 0.18 300)", ratio: "30 ×", vs: "CCSDS ≈ 8×", text: "Sondes deep-space : chaque bit coûte cher, lossless non-négociable." },
+  { name: "VR / XR / 360°", icon: Glasses, color: "oklch(0.62 0.20 25)", ratio: "8 ×", vs: "VP9 ≈ 2×", text: "Cube 6 faces, LOD progressif, navigation 3D native dans le flux." },
+  { name: "Cinéma DI", icon: Clapperboard, color: "oklch(0.70 0.10 80)", ratio: "6 ×", vs: "ProRes ≈ 2×", text: "Master lossless 4K/8K, color grading, intermédiaire numérique." },
+];
+
+function SectionDivider({ label }: { label: string }) {
+  return (
+    <div className="border-t border-border/50 bg-background">
+      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center gap-3">
+        <span className="size-1.5 rounded-full bg-primary" />
+        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">{label}</span>
+      </div>
+    </div>
+  );
+}
+
+function TamCell({ label, value, sub }: { label: string; value: string; sub: string }) {
+  return (
+    <div className="bg-card p-8 text-center">
+      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{label}</p>
+      <p className="font-display text-4xl text-primary mt-2 tracking-tight">{value}</p>
+      <p className="text-xs text-muted-foreground mt-1">{sub}</p>
+    </div>
+  );
+}
+
+
+
 function Stat({ value, label, sub }: { value: string; label: string; sub?: string }) {
   return (
     <div className="rounded-2xl border border-border bg-card/40 backdrop-blur p-6">
