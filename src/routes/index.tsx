@@ -542,9 +542,15 @@ function Home() {
               <p className="text-[10px] font-mono uppercase tracking-widest">ROOTS INSIGHTS</p>
             </div>
           </div>
-          <p className="font-mono text-xs">
-            Manifeste v1.0 — Mars 2026 · Confidentiel © {new Date().getFullYear()}
-          </p>
+          <div className="flex items-center gap-5">
+            <Link to="/outils" className="inline-flex items-center gap-2 hover:text-foreground transition-colors">
+              <FlaskConical className="size-3.5 text-primary" />
+              <span className="font-mono text-xs">9 utilitaires théoriques</span>
+            </Link>
+            <p className="font-mono text-xs">
+              Manifeste v1.0 — Mars 2026 · © {new Date().getFullYear()}
+            </p>
+          </div>
         </div>
       </footer>
     </div>
