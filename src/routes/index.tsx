@@ -12,6 +12,17 @@ import {
   ShieldCheck,
   Sparkles,
   Waves,
+  Play,
+  Box,
+  Database,
+  ArrowRight,
+  FlaskConical,
+  Building2,
+  Stethoscope,
+  Satellite,
+  Rocket,
+  Glasses,
+  Clapperboard,
 } from "lucide-react";
 import { Compressor } from "@/components/Compressor";
 
