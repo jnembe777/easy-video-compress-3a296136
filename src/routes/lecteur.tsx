@@ -46,10 +46,24 @@ function Lecteur() {
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [lod, setLod] = useState(2);
+  const [face, setFace] = useState<"Avant" | "Arrière" | "Gauche" | "Droite" | "Haut" | "Bas">("Avant");
+  const [query, setQuery] = useState("");
   const [activity, setActivity] = useState(0);
   const [colorCount, setColorCount] = useState(0);
   const [tags, setTags] = useState<Tag[]>([]);
   const [ready, setReady] = useState(false);
+
+  // Face → crop (sx,sy,sw,sh) en fraction de la vidéo
+  const faceCrop = (): [number, number, number, number] => {
+    switch (face) {
+      case "Avant":   return [0.25, 0.25, 0.5, 0.5];
+      case "Arrière": return [0, 0, 1, 1];
+      case "Gauche":  return [0, 0.2, 0.45, 0.6];
+      case "Droite":  return [0.55, 0.2, 0.45, 0.6];
+      case "Haut":    return [0.2, 0, 0.6, 0.45];
+      case "Bas":     return [0.2, 0.55, 0.6, 0.45];
+    }
+  };
 
   // Sync video time → state
   useEffect(() => {
