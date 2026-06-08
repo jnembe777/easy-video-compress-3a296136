@@ -15,20 +15,20 @@ import {
 } from "lucide-react";
 import { Compressor } from "@/components/Compressor";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/en")({
   head: () => ({
     meta: [
-      { title: "PPV Studio — PP‑CODEC : compression vidéo lossless 109:1" },
+      { title: "PPV Studio — PP‑CODEC: 109:1 lossless video compression" },
       {
         name: "description",
         content:
-          "PP‑CODEC est un méta‑codec vidéo fondé sur les processus ponctuels marqués et le principe MDL. 109:1 lossless validé mathématiquement (Théorème 6.4).",
+          "PP‑CODEC is a video meta‑codec grounded in marked point processes and the MDL principle. 109:1 lossless, mathematically validated (Theorem 6.4).",
       },
       { property: "og:title", content: "PPV Studio — PP‑CODEC 109:1 lossless" },
       {
         property: "og:description",
         content:
-          "Un paradigme pixel‑first, temporel et parcimonieux. Validation théorique + démo en navigateur.",
+          "A pixel‑first, temporal and parsimonious paradigm. Theoretical validation + in‑browser demo.",
       },
     ],
   }),
@@ -38,49 +38,49 @@ export const Route = createFileRoute("/")({
 const pillars = [
   {
     icon: Activity,
-    title: "Pixel‑first temporel",
-    text: "Chaque pixel est un processus ponctuel marqué. Les événements sont les changements de couleur — pas les trames.",
+    title: "Pixel‑first temporal",
+    text: "Every pixel is a marked point process. Events are color changes — not frames.",
   },
   {
     icon: Binary,
-    title: "MDL & Algorithme 1",
-    text: "Codeur arithmétique 30‑bit, Elias δ/γ, log₂C(r,N). Excès ≤ 2.72 bits vs optimal pour r ≤ 900.",
+    title: "MDL & Algorithm 1",
+    text: "30‑bit arithmetic coder, Elias δ/γ, log₂C(r,N). Excess ≤ 2.72 bits vs optimal for r ≤ 900.",
   },
   {
     icon: Layers,
-    title: "Pyramide multi‑échelle",
-    text: "Sparsité résidus 98.2%. Le spatial multiplie le gain temporel par 6.2×.",
+    title: "Multi‑scale pyramid",
+    text: "98.2% residual sparsity. Spatial layer multiplies temporal gain by 6.2×.",
   },
   {
     icon: Cpu,
-    title: "Rust parallèle, 0 unsafe",
-    text: "4 497 LOC, 84 tests verts, Rayon par bloc. Décodeur random‑access O(1) via seek table 12 B/bloc.",
+    title: "Parallel Rust, 0 unsafe",
+    text: "4,497 LOC, 84 passing tests, Rayon per‑block. O(1) random‑access decoder via 12 B/block seek table.",
   },
   {
     icon: Microscope,
-    title: "Validation Hellinger",
-    text: "Convergence n⁻⁰·⁷, borne du Théorème 6.4 satisfaite à 91.7% du domaine valide.",
+    title: "Hellinger validation",
+    text: "n⁻⁰·⁷ convergence, Theorem 6.4 bound satisfied on 91.7% of the valid domain.",
   },
   {
     icon: Radio,
-    title: "Heuristiques P3bis",
-    text: "Arbres de décision embarqués : framework 100%, famille 79%. B‑spline K6 domine 55.6%.",
+    title: "P3bis heuristics",
+    text: "Embedded decision trees: framework 100%, family 79%. B‑spline K6 dominates at 55.6%.",
   },
 ];
 
 const benchmarks = [
-  { config: "Surveillance 128×96×128, 5% activité", ratio: "17.6 : 1", encode: "15 MPx/s", decode: "51 MPx/s" },
-  { config: "SD 360p, 480×360×30, 5% activité", ratio: "11.2 : 1", encode: "14 MPx/s", decode: "55 MPx/s" },
-  { config: "Dense 64×48×64, 80% activité", ratio: "4.6 : 1", encode: "14 MPx/s", decode: "32 MPx/s" },
-  { config: "Pyramide 16×16×64, 4% (spatial seul)", ratio: "6.2 ×", encode: "—", decode: "—" },
+  { config: "Surveillance 128×96×128, 5% activity", ratio: "17.6 : 1", encode: "15 MPx/s", decode: "51 MPx/s" },
+  { config: "SD 360p, 480×360×30, 5% activity", ratio: "11.2 : 1", encode: "14 MPx/s", decode: "55 MPx/s" },
+  { config: "Dense 64×48×64, 80% activity", ratio: "4.6 : 1", encode: "14 MPx/s", decode: "32 MPx/s" },
+  { config: "Pyramid 16×16×64, 4% (spatial only)", ratio: "6.2 ×", encode: "—", decode: "—" },
 ];
 
 const comparison = [
-  { codec: "PP‑CODEC (surveillance lossless)", ratio: "109 : 1", lossless: "Oui", paradigm: "Pixel temporel + MDL" },
-  { codec: "H.264 lossless (x264 --qp 0)", ratio: "≈ 3 : 1", lossless: "Oui", paradigm: "DCT / frame" },
-  { codec: "HEVC lossless", ratio: "≈ 4 : 1", lossless: "Oui", paradigm: "DCT / frame" },
-  { codec: "AV1 lossless", ratio: "≈ 4 : 1", lossless: "Oui", paradigm: "DCT / frame" },
-  { codec: "FFV1 (archive lossless)", ratio: "≈ 2.5 : 1", lossless: "Oui", paradigm: "Inter‑frame predictive" },
+  { codec: "PP‑CODEC (surveillance lossless)", ratio: "109 : 1", lossless: "Yes", paradigm: "Pixel‑temporal + MDL" },
+  { codec: "H.264 lossless (x264 --qp 0)", ratio: "≈ 3 : 1", lossless: "Yes", paradigm: "DCT / frame" },
+  { codec: "HEVC lossless", ratio: "≈ 4 : 1", lossless: "Yes", paradigm: "DCT / frame" },
+  { codec: "AV1 lossless", ratio: "≈ 4 : 1", lossless: "Yes", paradigm: "DCT / frame" },
+  { codec: "FFV1 (lossless archive)", ratio: "≈ 2.5 : 1", lossless: "Yes", paradigm: "Inter‑frame predictive" },
 ];
 
 function Stat({ value, label, sub }: { value: string; label: string; sub?: string }) {
@@ -99,7 +99,7 @@ function Home() {
       {/* Nav */}
       <header className="relative z-20 border-b border-border/50 backdrop-blur-xl bg-background/60">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <Link to="/en" className="flex items-center gap-3">
             <div className="size-9 rounded-md bg-gradient-primary grid place-items-center shadow-glow">
               <Waves className="size-4 text-primary-foreground" />
             </div>
@@ -107,14 +107,14 @@ function Home() {
               <p className="font-display text-lg font-semibold tracking-tight">PPV Studio</p>
               <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-mono">PP‑CODEC FORGE</p>
             </div>
-          </div>
+          </Link>
           <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-            <a href="#paradigm" className="hover:text-foreground transition-colors">Paradigme</a>
+            <a href="#paradigm" className="hover:text-foreground transition-colors">Paradigm</a>
             <a href="#benchmarks" className="hover:text-foreground transition-colors">Benchmarks</a>
-            <a href="#compare" className="hover:text-foreground transition-colors">Comparatif</a>
-            <a href="#demo" className="hover:text-foreground transition-colors">Démo</a>
-            <Link to="/en" className="font-mono text-xs uppercase tracking-widest border border-border rounded-md px-2 py-1 hover:text-foreground hover:border-primary/50 transition-colors">
-              EN
+            <a href="#compare" className="hover:text-foreground transition-colors">Comparison</a>
+            <a href="#demo" className="hover:text-foreground transition-colors">Demo</a>
+            <Link to="/" className="font-mono text-xs uppercase tracking-widest border border-border rounded-md px-2 py-1 hover:text-foreground hover:border-primary/50 transition-colors">
+              FR
             </Link>
           </nav>
         </div>
@@ -132,30 +132,30 @@ function Home() {
           >
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs text-primary font-mono mb-8">
               <span className="size-1.5 rounded-full bg-primary animate-pulse" />
-              ROOTS INSIGHTS — Libreville · Singapour · San Francisco
+              ROOTS INSIGHTS — Libreville · Singapore · San Francisco
             </div>
             <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl font-medium tracking-tight leading-[1.02]">
-              La vidéo n'est pas
+              Video is not
               <br />
-              une <span className="font-display-italic text-gradient">séquence de trames.</span>
+              a <span className="font-display-italic text-gradient">sequence of frames.</span>
             </h1>
             <p className="mt-8 text-lg sm:text-xl text-muted-foreground max-w-2xl leading-relaxed">
-              <span className="text-foreground">PP‑CODEC</span> est un méta‑codec vidéo fondé sur les
-              processus ponctuels marqués et le principe MDL. Chaque pixel devient un flux temporel
-              indépendant — et la compression devient mathématique.
+              <span className="text-foreground">PP‑CODEC</span> is a video meta‑codec grounded in
+              marked point processes and the MDL principle. Each pixel becomes an independent
+              temporal stream — and compression becomes mathematical.
             </p>
             <div className="mt-10 flex flex-wrap gap-4 text-sm">
               <a
                 href="#benchmarks"
                 className="inline-flex items-center gap-2 rounded-md bg-gradient-primary px-6 py-3 font-medium text-primary-foreground shadow-glow hover:opacity-90 transition-opacity"
               >
-                Voir les benchmarks
+                See the benchmarks
               </a>
               <a
                 href="#demo"
                 className="inline-flex items-center gap-2 rounded-md border border-border bg-card/50 px-6 py-3 font-medium hover:bg-card transition-colors"
               >
-                Essayer la démo classique
+                Try the classic demo
               </a>
             </div>
 
@@ -163,8 +163,8 @@ function Home() {
             <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-4">
               <Stat value="109 : 1" label="Lossless surveillance" sub="17.6 × 6.2" />
               <Stat value="100%" label="MDL accuracy" sub="n = 256" />
-              <Stat value="0" label="Blocs unsafe Rust" sub="84 / 84 tests" />
-              <Stat value="Thm 6.4" label="Validation théorique" sub="docB — 91.7%" />
+              <Stat value="0" label="Rust unsafe blocks" sub="84 / 84 tests" />
+              <Stat value="Thm 6.4" label="Theoretical validation" sub="docB — 91.7%" />
             </div>
           </motion.div>
         </div>
@@ -175,21 +175,21 @@ function Home() {
         <div className="max-w-7xl mx-auto px-6 py-24">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             <div>
-              <p className="text-xs font-mono uppercase tracking-[0.3em] text-primary">Le changement de paradigme</p>
+              <p className="text-xs font-mono uppercase tracking-[0.3em] text-primary">The paradigm shift</p>
               <h2 className="font-display text-4xl sm:text-5xl font-medium mt-4 leading-tight">
-                Au lieu de couper la vidéo en trames,
+                Instead of slicing video into frames,
                 <br />
-                <span className="font-display-italic">on l'écoute pixel par pixel.</span>
+                <span className="font-display-italic">we listen to it pixel by pixel.</span>
               </h2>
               <p className="text-muted-foreground mt-6 leading-relaxed">
-                Les codecs classiques — H.264, HEVC, AV1 — héritent tous du même paradigme : transformée
-                DCT par bloc, prédiction inter‑trame, quantification. PP‑CODEC abandonne ce cadre.
+                Classical codecs — H.264, HEVC, AV1 — all inherit from the same paradigm: block‑based
+                DCT transform, inter‑frame prediction, quantization. PP‑CODEC discards that frame.
               </p>
               <p className="text-muted-foreground mt-4 leading-relaxed">
-                Chaque pixel est traité comme un <span className="text-foreground">processus ponctuel
-                marqué</span> dont les événements sont les changements de couleur. Le principe MDL
-                (Minimum Description Length) sélectionne automatiquement la famille d'estimation la plus
-                parcimonieuse parmi Trigonométrique, Haar, B‑splines K6 et Daubechies D4.
+                Each pixel is treated as a <span className="text-foreground">marked point
+                process</span> whose events are color changes. The MDL (Minimum Description Length)
+                principle automatically selects the most parsimonious estimation family among
+                Trigonometric, Haar, B‑spline K6 and Daubechies D4.
               </p>
             </div>
 
@@ -212,12 +212,12 @@ function Home() {
       <section id="benchmarks" className="border-t border-border/50 bg-card/20">
         <div className="max-w-7xl mx-auto px-6 py-24">
           <div className="max-w-2xl mb-12">
-            <p className="text-xs font-mono uppercase tracking-[0.3em] text-primary">Benchmarks FORGE‑FINISHER F5</p>
+            <p className="text-xs font-mono uppercase tracking-[0.3em] text-primary">FORGE‑FINISHER F5 benchmarks</p>
             <h2 className="font-display text-4xl sm:text-5xl font-medium mt-4">
-              Mesuré, pas extrapolé.
+              Measured, not extrapolated.
             </h2>
             <p className="text-muted-foreground mt-4">
-              Build release Rust, 0 unsafe. Toutes les valeurs proviennent du manifeste v1.0.
+              Rust release build, 0 unsafe. All values come from manifesto v1.0.
             </p>
           </div>
 
@@ -244,7 +244,7 @@ function Home() {
           </div>
 
           <p className="text-xs text-muted-foreground mt-4 font-mono">
-            Ratio effectif combiné surveillance lossless = 17.6 × 6.2 ≈ <span className="text-primary">109 : 1</span>.
+            Combined effective ratio, lossless surveillance = 17.6 × 6.2 ≈ <span className="text-primary">109 : 1</span>.
           </p>
         </div>
       </section>
@@ -253,13 +253,13 @@ function Home() {
       <section id="compare" className="border-t border-border/50">
         <div className="max-w-7xl mx-auto px-6 py-24">
           <div className="max-w-2xl mb-12">
-            <p className="text-xs font-mono uppercase tracking-[0.3em] text-primary">Comparatif lossless</p>
+            <p className="text-xs font-mono uppercase tracking-[0.3em] text-primary">Lossless comparison</p>
             <h2 className="font-display text-4xl sm:text-5xl font-medium mt-4">
-              Là où les codecs DCT s'arrêtent.
+              Where DCT codecs stop.
             </h2>
             <p className="text-muted-foreground mt-4">
-              Sur contenu de surveillance à faible activité, le paradigme temporel exploite des structures
-              que les transformées par bloc ne voient pas.
+              On low‑activity surveillance content, the temporal paradigm exploits structures that
+              block‑based transforms simply cannot see.
             </p>
           </div>
 
@@ -282,7 +282,7 @@ function Home() {
                   </p>
                 </div>
                 <div className="mt-3 flex items-center gap-4 text-xs font-mono text-muted-foreground">
-                  <span>Lossless : {c.lossless}</span>
+                  <span>Lossless: {c.lossless}</span>
                   <span>·</span>
                   <span>{c.paradigm}</span>
                 </div>
@@ -298,18 +298,18 @@ function Home() {
           <div className="grid lg:grid-cols-3 gap-10">
             <div className="lg:col-span-1">
               <p className="text-xs font-mono uppercase tracking-[0.3em] text-primary">Architecture</p>
-              <h2 className="font-display text-4xl font-medium mt-4">Quatre systèmes, un méta‑codec.</h2>
+              <h2 className="font-display text-4xl font-medium mt-4">Four systems, one meta‑codec.</h2>
               <p className="text-muted-foreground mt-4 leading-relaxed">
-                Le projet est structuré en 4 agents FORGE travaillant en parallèle, depuis la théorie
-                statistique jusqu'au SDK public.
+                The project is structured around 4 FORGE agents working in parallel, from statistical
+                theory all the way to the public SDK.
               </p>
             </div>
             <div className="lg:col-span-2 grid sm:grid-cols-2 gap-4">
               {[
-                { tag: "FINISHER", state: "F1–F5 ✓", text: "Codec Rust : pp-core + pp-codec, 4 497 LOC, format .ppv v2." },
-                { tag: "SIM", state: "P1–P5 ✓", text: "Python : 6 familles, MDL, convergence Hellinger, 22 findings." },
-                { tag: "APP", state: "Ph1 + Ph3 ✓", text: "Pyramide multi‑échelle 760 LOC, parallélisation Rayon." },
-                { tag: "INTEG", state: "En cours", text: "Heuristics arbres P3bis embarqués. SDK + bindings WASM à venir." },
+                { tag: "FINISHER", state: "F1–F5 ✓", text: "Rust codec: pp-core + pp-codec, 4,497 LOC, .ppv v2 format." },
+                { tag: "SIM", state: "P1–P5 ✓", text: "Python: 6 families, MDL, Hellinger convergence, 22 findings." },
+                { tag: "APP", state: "Ph1 + Ph3 ✓", text: "Multi‑scale pyramid 760 LOC, Rayon parallelization." },
+                { tag: "INTEG", state: "In progress", text: "Embedded P3bis tree heuristics. SDK + WASM bindings to come." },
               ].map((s) => (
                 <div key={s.tag} className="rounded-xl border border-border bg-card p-5">
                   <div className="flex items-center justify-between">
@@ -328,15 +328,16 @@ function Home() {
       <section id="demo" className="border-t border-border/50">
         <div className="max-w-5xl mx-auto px-6 py-24">
           <div className="mb-10">
-            <p className="text-xs font-mono uppercase tracking-[0.3em] text-primary">Démo — référence classique</p>
+            <p className="text-xs font-mono uppercase tracking-[0.3em] text-primary">Demo — classical reference</p>
             <h2 className="font-display text-4xl sm:text-5xl font-medium mt-4">
-              Essayez la compression DCT, dans votre navigateur.
+              Try DCT compression, right in your browser.
             </h2>
             <p className="text-muted-foreground mt-4 max-w-2xl leading-relaxed">
-              En attendant les <span className="font-mono text-primary">bindings WASM</span> de PP‑CODEC
-              (FORGE‑INTEG), voici une démo de compression classique <span className="text-foreground">H.264 / x264</span>{" "}
-              propulsée par FFmpeg.wasm. Elle illustre l'état de l'art DCT que PP‑CODEC dépasse de
-              <span className="text-primary"> 30× à 50× </span> sur contenu surveillance.
+              While the <span className="font-mono text-primary">WASM bindings</span> for PP‑CODEC
+              (FORGE‑INTEG) are still in development, here is a classical
+              <span className="text-foreground"> H.264 / x264 </span> compression demo powered by
+              FFmpeg.wasm. It illustrates the state‑of‑the‑art DCT baseline that PP‑CODEC outperforms
+              by <span className="text-primary">30× to 50×</span> on surveillance content.
             </p>
             <div className="mt-6 flex flex-wrap gap-3 text-xs font-mono">
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/50 px-3 py-1.5">
@@ -346,13 +347,13 @@ function Home() {
                 <Gauge className="size-3 text-primary" /> H.264 + AAC
               </span>
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/50 px-3 py-1.5">
-                <ShieldCheck className="size-3 text-primary" /> Aucun upload
+                <ShieldCheck className="size-3 text-primary" /> No upload
               </span>
             </div>
           </div>
           <Compressor />
           <p className="text-xs text-muted-foreground mt-6 font-mono text-center">
-            Cette démo n'utilise pas PP‑CODEC. Le SDK Rust + WASM est en développement (FORGE‑INTEG).
+            This demo does not use PP‑CODEC. The Rust + WASM SDK is in development (FORGE‑INTEG).
           </p>
         </div>
       </section>
@@ -362,13 +363,13 @@ function Home() {
         <div className="max-w-5xl mx-auto px-6 py-24 text-center">
           <Sparkles className="size-6 text-primary mx-auto mb-6" />
           <h2 className="font-display text-4xl sm:text-5xl font-medium leading-tight">
-            Un méta‑codec, validé mathématiquement,
+            A meta‑codec, mathematically validated,
             <br />
-            <span className="font-display-italic text-gradient">prêt pour l'industrie.</span>
+            <span className="font-display-italic text-gradient">industry‑ready.</span>
           </h2>
           <p className="text-muted-foreground mt-6 max-w-2xl mx-auto">
-            PP‑CODEC FORGE est un projet de recherche industrielle de ROOTS INSIGHTS. Brochures
-            investisseurs et études comparatives disponibles.
+            PP‑CODEC FORGE is an industrial research project by ROOTS INSIGHTS. Investor brochures and
+            comparative studies available on request.
           </p>
         </div>
       </section>
@@ -383,7 +384,7 @@ function Home() {
             </div>
           </div>
           <p className="font-mono text-xs">
-            Manifeste v1.0 — Mars 2026 · Confidentiel © {new Date().getFullYear()}
+            Manifesto v1.0 — March 2026 · Confidential © {new Date().getFullYear()}
           </p>
         </div>
       </footer>
