@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { TerminalBox, TerminalButton } from "@/components/terminal/TerminalBox";
 import { FeaturesBar } from "@/components/terminal/FeaturesBar";
+import { fmt, bucket, bucketTag, faceCrop, filterTags, LOD_SCALE, LOD_LABEL, type Face } from "@/lib/lecteur-utils";
 
 export const Route = createFileRoute("/lecteur")({
   head: () => ({
@@ -21,16 +22,6 @@ const VIDEO_SRC = "https://cdn.jsdelivr.net/gh/mediaelement/mediaelement-files/b
 
 type Tag = { start: number; end: number; label: string; icon: string };
 
-function fmt(s: number) {
-  if (!isFinite(s)) return "--:--";
-  const m = Math.floor(s / 60).toString().padStart(2, "0");
-  const sec = Math.floor(s % 60).toString().padStart(2, "0");
-  return `${m}:${sec}`;
-}
-
-// LOD → downscale factor for analysis canvas
-const LOD_SCALE = [0.25, 0.5, 1]; // LOD 0=low, 2=high
-const LOD_LABEL = ["1/4", "1/2", "1/1"];
 
 function Lecteur() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -46,24 +37,13 @@ function Lecteur() {
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [lod, setLod] = useState(2);
-  const [face, setFace] = useState<"Avant" | "Arrière" | "Gauche" | "Droite" | "Haut" | "Bas">("Avant");
+  const [face, setFace] = useState<Face>("Avant");
   const [query, setQuery] = useState("");
   const [activity, setActivity] = useState(0);
   const [colorCount, setColorCount] = useState(0);
   const [tags, setTags] = useState<Tag[]>([]);
   const [ready, setReady] = useState(false);
 
-  // Face → crop (sx,sy,sw,sh) en fraction de la vidéo
-  const faceCrop = (): [number, number, number, number] => {
-    switch (face) {
-      case "Avant":   return [0.25, 0.25, 0.5, 0.5];
-      case "Arrière": return [0, 0, 1, 1];
-      case "Gauche":  return [0, 0.2, 0.45, 0.6];
-      case "Droite":  return [0.55, 0.2, 0.45, 0.6];
-      case "Haut":    return [0.2, 0, 0.6, 0.45];
-      case "Bas":     return [0.2, 0.55, 0.6, 0.45];
-    }
-  };
 
   // Sync video time → state
   useEffect(() => {
@@ -105,7 +85,7 @@ function Lecteur() {
         if (cv.height !== h) cv.height = h;
 
         // Face crop (source rect dans la vidéo)
-        const [fx, fy, fw, fh] = faceCrop();
+        const [fx, fy, fw, fh] = faceCrop(face);
         const srcX = fx * v.videoWidth;
         const srcY = fy * v.videoHeight;
         const srcW = fw * v.videoWidth;
@@ -236,8 +216,7 @@ function Lecteur() {
   };
 
   const pct = duration ? (time / duration) * 100 : 0;
-  const q = query.trim().toLowerCase();
-  const visibleTags = q ? tags.filter((t) => t.label.toLowerCase().includes(q) || t.icon.includes(q)) : tags;
+  const visibleTags = filterTags(tags, query);
   const currentTag = visibleTags.find((g) => duration && time / duration >= g.start && time / duration < g.end);
 
   return (
@@ -358,16 +337,6 @@ function Lecteur() {
   );
 }
 
-function bucket(a: number): 0 | 1 | 2 {
-  if (a < 8) return 0;
-  if (a < 25) return 1;
-  return 2;
-}
-function bucketTag(b: 0 | 1 | 2): { label: string; icon: string } {
-  if (b === 0) return { label: "rien", icon: "·" };
-  if (b === 1) return { label: "personne", icon: "🚶" };
-  return { label: "véhicule", icon: "🚗" };
-}
 
 function Header() {
   return (
