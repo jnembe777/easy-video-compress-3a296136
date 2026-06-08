@@ -120,12 +120,11 @@ function Home() {
             </div>
           </div>
           <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#paradigm" className="hover:text-foreground transition-colors">Paradigme</a>
+            <a href="#marches" className="hover:text-foreground transition-colors">Marchés</a>
+            <a href="#paradigm" className="hover:text-foreground transition-colors">Technologie</a>
             <a href="#benchmarks" className="hover:text-foreground transition-colors">Benchmarks</a>
-            <Link to="/lecteur" className="hover:text-foreground transition-colors font-mono text-xs uppercase tracking-wider">Lecteur</Link>
-            <Link to="/navigateur" className="hover:text-foreground transition-colors font-mono text-xs uppercase tracking-wider">Navigateur</Link>
-            <Link to="/codec" className="hover:text-foreground transition-colors font-mono text-xs uppercase tracking-wider">Codec</Link>
-            <Link to="/outils" className="hover:text-foreground transition-colors">Outils</Link>
+            <a href="#tools" className="hover:text-foreground transition-colors">Outils</a>
+            <a href="#demos" className="hover:text-foreground transition-colors">Démos</a>
             <Link to="/en" className="font-mono text-xs uppercase tracking-widest border border-border rounded-md px-2 py-1 hover:text-foreground hover:border-primary/50 transition-colors">
               EN
             </Link>
