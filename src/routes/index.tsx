@@ -410,6 +410,59 @@ function Home() {
         </div>
       </section>
 
+      {/* ==================== OUTILS & DÉMOS ==================== */}
+      <SectionDivider label="Track 3 — Produits & démos en navigateur" />
+
+      {/* Three tools */}
+      <section id="tools" className="border-t border-border/50">
+        <div className="max-w-7xl mx-auto px-6 py-24">
+          <div className="max-w-3xl mb-12">
+            <p className="text-xs font-mono uppercase tracking-[0.3em] text-primary">Suite produit PPV</p>
+            <h2 className="font-display text-4xl sm:text-5xl font-medium mt-4">
+              Trois outils, <span className="font-display-italic text-gradient">une seule pile</span>.
+            </h2>
+            <p className="text-muted-foreground mt-4 text-lg">
+              Lecteur, navigateur 3D et codec sémantique fonctionnent sur le même format <span className="font-mono text-primary">.ppv</span>.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            <ToolCard
+              to="/lecteur"
+              icon={Play}
+              name="PPV Studio — Lecteur"
+              tagline="La vidéo s'explore."
+              points={["Timeline sémantique", "Zoom natif O(1)", "LOD adaptatif"]}
+            />
+            <ToolCard
+              to="/navigateur"
+              icon={Box}
+              name="PPV 360 — Navigateur"
+              tagline="Cube 6 faces, LOD progressif."
+              points={["Vidéo 3D native", "Pyramide multi-échelle", "Capture & enregistrement"]}
+            />
+            <ToolCard
+              to="/codec"
+              icon={Database}
+              name="PPV Codec — Sémantique"
+              tagline="Compresser l'événement."
+              points={["Moteur SQL sémantique", "Éditeur métadonnées", "Vecteurs de mouvement"]}
+            />
+          </div>
+
+          <div className="mt-10 rounded-2xl border border-primary/30 bg-primary/5 p-8 flex flex-wrap items-center justify-between gap-6">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.25em] text-primary mb-2">9 démos interactives</p>
+              <h3 className="font-display text-2xl">Pixel Trace · P3bis · MDL · Hellinger · Arithmetic Coder · Benchmark · Poisson · Pyramide · .ppv Inspector</h3>
+              <p className="text-sm text-muted-foreground mt-2">Toutes les démos théoriques du paradigme PP-CODEC, jouables dans le navigateur.</p>
+            </div>
+            <Link to="/outils" className="inline-flex items-center gap-2 rounded-md bg-gradient-primary px-6 py-3 font-medium text-primary-foreground shadow-glow shrink-0">
+              Ouvrir la suite démos <ArrowRight className="size-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Demo — classical compression */}
       <section id="demo" className="border-t border-border/50">
         <div className="max-w-5xl mx-auto px-6 py-24">
