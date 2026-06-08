@@ -236,7 +236,9 @@ function Lecteur() {
   };
 
   const pct = duration ? (time / duration) * 100 : 0;
-  const currentTag = tags.find((g) => duration && time / duration >= g.start && time / duration < g.end);
+  const q = query.trim().toLowerCase();
+  const visibleTags = q ? tags.filter((t) => t.label.toLowerCase().includes(q) || t.icon.includes(q)) : tags;
+  const currentTag = visibleTags.find((g) => duration && time / duration >= g.start && time / duration < g.end);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -244,7 +246,11 @@ function Lecteur() {
       <div className="max-w-4xl mx-auto px-6 py-8 space-y-5">
         <Title text="LECTEUR VIDÉO PPV" />
 
-        <FeaturesBar lod={lod} onLodChange={setLod} />
+        <FeaturesBar
+          lod={lod} onLodChange={setLod}
+          face={face} onFaceChange={(f) => setFace(f as typeof face)}
+          onQuery={setQuery}
+        />
 
         {/* Transport bar */}
         <TerminalBox dense>
