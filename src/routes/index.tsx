@@ -12,6 +12,17 @@ import {
   ShieldCheck,
   Sparkles,
   Waves,
+  Play,
+  Box,
+  Database,
+  ArrowRight,
+  FlaskConical,
+  Building2,
+  Stethoscope,
+  Satellite,
+  Rocket,
+  Glasses,
+  Clapperboard,
 } from "lucide-react";
 import { Compressor } from "@/components/Compressor";
 
@@ -83,6 +94,60 @@ const comparison = [
   { codec: "FFV1 (archive lossless)", ratio: "≈ 2.5 : 1", lossless: "Oui", paradigm: "Inter‑frame predictive" },
 ];
 
+const markets = [
+  { name: "Surveillance", icon: Building2, color: "oklch(0.66 0.12 190)", ratio: "20 ×", vs: "H.265 ≈ 6×", text: "Caméras IP fixes, faible activité. Lossless garanti, accès bloc O(1)." },
+  { name: "Médical", icon: Stethoscope, color: "oklch(0.70 0.15 150)", ratio: "12 ×", vs: "DICOM ≈ 3×", text: "Imagerie diagnostique : bit-exact requis, archive longue durée." },
+  { name: "Satellite EO", icon: Satellite, color: "oklch(0.75 0.13 60)", ratio: "15 ×", vs: "JPEG2000 ≈ 4×", text: "Observation Terre haute résolution, bande passante downlink critique." },
+  { name: "Espace / Probe", icon: Rocket, color: "oklch(0.65 0.18 300)", ratio: "30 ×", vs: "CCSDS ≈ 8×", text: "Sondes deep-space : chaque bit coûte cher, lossless non-négociable." },
+  { name: "VR / XR / 360°", icon: Glasses, color: "oklch(0.62 0.20 25)", ratio: "8 ×", vs: "VP9 ≈ 2×", text: "Cube 6 faces, LOD progressif, navigation 3D native dans le flux." },
+  { name: "Cinéma DI", icon: Clapperboard, color: "oklch(0.70 0.10 80)", ratio: "6 ×", vs: "ProRes ≈ 2×", text: "Master lossless 4K/8K, color grading, intermédiaire numérique." },
+];
+
+function SectionDivider({ label }: { label: string }) {
+  return (
+    <div className="border-t border-border/50 bg-background">
+      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center gap-3">
+        <span className="size-1.5 rounded-full bg-primary" />
+        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">{label}</span>
+      </div>
+    </div>
+  );
+}
+
+function TamCell({ label, value, sub }: { label: string; value: string; sub: string }) {
+  return (
+    <div className="bg-card p-8 text-center">
+      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{label}</p>
+      <p className="font-display text-4xl text-primary mt-2 tracking-tight">{value}</p>
+      <p className="text-xs text-muted-foreground mt-1">{sub}</p>
+    </div>
+  );
+}
+
+function ToolCard({
+  to, icon: Icon, name, tagline, points,
+}: { to: "/lecteur" | "/navigateur" | "/codec"; icon: typeof Play; name: string; tagline: string; points: string[] }) {
+  return (
+    <Link to={to} className="group rounded-2xl border border-border bg-card p-7 hover:border-primary/50 hover:shadow-glow transition-all relative overflow-hidden">
+      <div className="size-12 rounded-md bg-gradient-primary grid place-items-center mb-5 shadow-glow">
+        <Icon className="size-6 text-primary-foreground" />
+      </div>
+      <h3 className="font-display text-xl font-semibold">{name}</h3>
+      <p className="font-display-italic text-primary mt-1">{tagline}</p>
+      <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
+        {points.map((p) => (
+          <li key={p} className="flex items-center gap-2"><span className="text-primary">›</span> {p}</li>
+        ))}
+      </ul>
+      <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary group-hover:gap-3 transition-all">
+        Ouvrir l'outil <ArrowRight className="size-4" />
+      </div>
+    </Link>
+  );
+}
+
+
+
 function Stat({ value, label, sub }: { value: string; label: string; sub?: string }) {
   return (
     <div className="rounded-2xl border border-border bg-card/40 backdrop-blur p-6">
@@ -109,12 +174,11 @@ function Home() {
             </div>
           </div>
           <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#paradigm" className="hover:text-foreground transition-colors">Paradigme</a>
+            <a href="#marches" className="hover:text-foreground transition-colors">Marchés</a>
+            <a href="#paradigm" className="hover:text-foreground transition-colors">Technologie</a>
             <a href="#benchmarks" className="hover:text-foreground transition-colors">Benchmarks</a>
-            <Link to="/lecteur" className="hover:text-foreground transition-colors font-mono text-xs uppercase tracking-wider">Lecteur</Link>
-            <Link to="/navigateur" className="hover:text-foreground transition-colors font-mono text-xs uppercase tracking-wider">Navigateur</Link>
-            <Link to="/codec" className="hover:text-foreground transition-colors font-mono text-xs uppercase tracking-wider">Codec</Link>
-            <Link to="/outils" className="hover:text-foreground transition-colors">Outils</Link>
+            <a href="#tools" className="hover:text-foreground transition-colors">Outils</a>
+            <a href="#demos" className="hover:text-foreground transition-colors">Démos</a>
             <Link to="/en" className="font-mono text-xs uppercase tracking-widest border border-border rounded-md px-2 py-1 hover:text-foreground hover:border-primary/50 transition-colors">
               EN
             </Link>
@@ -146,18 +210,18 @@ function Home() {
               processus ponctuels marqués et le principe MDL. Chaque pixel devient un flux temporel
               indépendant — et la compression devient mathématique.
             </p>
-            <div className="mt-10 flex flex-wrap gap-4 text-sm">
-              <a
-                href="#benchmarks"
-                className="inline-flex items-center gap-2 rounded-md bg-gradient-primary px-6 py-3 font-medium text-primary-foreground shadow-glow hover:opacity-90 transition-opacity"
-              >
-                Voir les benchmarks
+            <div className="mt-10 flex flex-wrap gap-3 text-sm">
+              <a href="#tools" className="inline-flex items-center gap-2 rounded-md bg-gradient-primary px-6 py-3 font-medium text-primary-foreground shadow-glow hover:opacity-90 transition-opacity">
+                Ouvrir les 3 outils <ArrowRight className="size-4" />
               </a>
-              <a
-                href="#demo"
-                className="inline-flex items-center gap-2 rounded-md border border-border bg-card/50 px-6 py-3 font-medium hover:bg-card transition-colors"
-              >
-                Essayer la démo classique
+              <Link to="/outils" className="inline-flex items-center gap-2 rounded-md border border-primary/40 bg-primary/5 px-6 py-3 font-medium hover:bg-primary/10 transition-colors">
+                <FlaskConical className="size-4 text-primary" /> 9 démos interactives
+              </Link>
+              <a href="#marches" className="inline-flex items-center gap-2 rounded-md border border-border bg-card/50 px-6 py-3 font-medium hover:bg-card transition-colors">
+                Pitch commercial
+              </a>
+              <a href="#paradigm" className="inline-flex items-center gap-2 rounded-md border border-border bg-card/50 px-6 py-3 font-medium hover:bg-card transition-colors">
+                Détails techniques
               </a>
             </div>
 
@@ -171,6 +235,48 @@ function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* ==================== TRACK COMMERCIAL ==================== */}
+      <SectionDivider label="Track 1 — Vision & Marchés" />
+
+      {/* Markets / verticals */}
+      <section id="marches" className="border-t border-border/50">
+        <div className="max-w-7xl mx-auto px-6 py-24">
+          <div className="max-w-3xl mb-12">
+            <p className="text-xs font-mono uppercase tracking-[0.3em] text-accent">Pitch commercial</p>
+            <h2 className="font-display text-4xl sm:text-5xl font-medium mt-4 leading-tight">
+              Compresser <span className="font-display-italic">l'événement</span>,
+              <br />pas le pixel.
+            </h2>
+            <p className="text-muted-foreground mt-5 text-lg leading-relaxed">
+              Le premier codec vidéo lossless qui exploite la sparsité temporelle native des contenus
+              statiques. Six marchés verticaux, un même paradigme.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {markets.map((m) => (
+              <div key={m.name} className="rounded-2xl border border-border bg-card p-6 hover:border-primary/40 transition-colors relative overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: m.color }} />
+                <m.icon className="size-6 mb-4" style={{ color: m.color }} />
+                <h3 className="font-display text-xl font-semibold">{m.name}</h3>
+                <p className="font-mono text-3xl mt-3" style={{ color: m.color }}>{m.ratio}</p>
+                <p className="text-xs font-mono text-muted-foreground mt-1">vs {m.vs}</p>
+                <p className="text-sm text-muted-foreground mt-4 leading-relaxed">{m.text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 grid sm:grid-cols-3 gap-px bg-border/60 rounded-2xl overflow-hidden">
+            <TamCell label="Surveillance" value="$8 B" sub="caméras IP, NVR cloud" />
+            <TamCell label="Médical + Satellite" value="$4 B" sub="imagerie diagnostique, EO" />
+            <TamCell label="Streaming + VR/XR" value="$12 B" sub="ciné, 360°, volumétrique" />
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== TRACK TECHNIQUE ==================== */}
+      <SectionDivider label="Track 2 — Architecture & Théorie" />
 
       {/* Paradigm shift */}
       <section id="paradigm" className="border-t border-border/50">
@@ -322,6 +428,59 @@ function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== OUTILS & DÉMOS ==================== */}
+      <SectionDivider label="Track 3 — Produits & démos en navigateur" />
+
+      {/* Three tools */}
+      <section id="tools" className="border-t border-border/50">
+        <div className="max-w-7xl mx-auto px-6 py-24">
+          <div className="max-w-3xl mb-12">
+            <p className="text-xs font-mono uppercase tracking-[0.3em] text-primary">Suite produit PPV</p>
+            <h2 className="font-display text-4xl sm:text-5xl font-medium mt-4">
+              Trois outils, <span className="font-display-italic text-gradient">une seule pile</span>.
+            </h2>
+            <p className="text-muted-foreground mt-4 text-lg">
+              Lecteur, navigateur 3D et codec sémantique fonctionnent sur le même format <span className="font-mono text-primary">.ppv</span>.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            <ToolCard
+              to="/lecteur"
+              icon={Play}
+              name="PPV Studio — Lecteur"
+              tagline="La vidéo s'explore."
+              points={["Timeline sémantique", "Zoom natif O(1)", "LOD adaptatif"]}
+            />
+            <ToolCard
+              to="/navigateur"
+              icon={Box}
+              name="PPV 360 — Navigateur"
+              tagline="Cube 6 faces, LOD progressif."
+              points={["Vidéo 3D native", "Pyramide multi-échelle", "Capture & enregistrement"]}
+            />
+            <ToolCard
+              to="/codec"
+              icon={Database}
+              name="PPV Codec — Sémantique"
+              tagline="Compresser l'événement."
+              points={["Moteur SQL sémantique", "Éditeur métadonnées", "Vecteurs de mouvement"]}
+            />
+          </div>
+
+          <div className="mt-10 rounded-2xl border border-primary/30 bg-primary/5 p-8 flex flex-wrap items-center justify-between gap-6">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.25em] text-primary mb-2">9 démos interactives</p>
+              <h3 className="font-display text-2xl">Pixel Trace · P3bis · MDL · Hellinger · Arithmetic Coder · Benchmark · Poisson · Pyramide · .ppv Inspector</h3>
+              <p className="text-sm text-muted-foreground mt-2">Toutes les démos théoriques du paradigme PP-CODEC, jouables dans le navigateur.</p>
+            </div>
+            <Link to="/outils" className="inline-flex items-center gap-2 rounded-md bg-gradient-primary px-6 py-3 font-medium text-primary-foreground shadow-glow shrink-0">
+              Ouvrir la suite démos <ArrowRight className="size-4" />
+            </Link>
           </div>
         </div>
       </section>
