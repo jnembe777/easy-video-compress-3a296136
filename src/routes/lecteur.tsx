@@ -216,8 +216,7 @@ function Lecteur() {
   };
 
   const pct = duration ? (time / duration) * 100 : 0;
-  const q = query.trim().toLowerCase();
-  const visibleTags = q ? tags.filter((t) => t.label.toLowerCase().includes(q) || t.icon.includes(q)) : tags;
+  const visibleTags = filterTags(tags, query);
   const currentTag = visibleTags.find((g) => duration && time / duration >= g.start && time / duration < g.end);
 
   return (
