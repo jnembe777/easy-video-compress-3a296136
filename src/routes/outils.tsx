@@ -6,6 +6,9 @@ import { MdlComparator } from "@/components/tools/MdlComparator";
 import { HellingerChart } from "@/components/tools/HellingerChart";
 import { ArithmeticCoder } from "@/components/tools/ArithmeticCoder";
 import { BenchmarkDashboard } from "@/components/tools/BenchmarkDashboard";
+import { PpSimulator } from "@/components/tools/PpSimulator";
+import { SpatialPyramid } from "@/components/tools/SpatialPyramid";
+import { PpvInspector } from "@/components/tools/PpvInspector";
 
 export const Route = createFileRoute("/outils")({
   head: () => ({
